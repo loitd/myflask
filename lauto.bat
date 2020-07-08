@@ -10,6 +10,7 @@ pip install pipenv
 pipenv install
 
 :GIT
+echo Do normal things
 git pull origin master --allow-unrelated-histories
 git add *
 git commit -am "auto added and commited"
