@@ -1,0 +1,51 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Register an account{% endblock %}
+
+{% block topnav %}
+  <!-- No topnav here -->
+{% endblock %}
+
+{% block content %}
+  <form class="form-signin" id="formRegister" method="POST">
+    <div class="text-center mb-4">
+    <img class="mb-4" src="{{ url_for('static', filename='img/kcal.svg') }}" alt="" width="72" height="72">
+    <h1 class="h3 mb-3 font-weight-normal">Register</h1>
+    <p>Already have an account? <a href="{{ url_for('login_blp.getLogin') }}">Sign in here</a></p>
+
+    {% if errors %}
+      <div class="alert alert-danger" role="alert" style="font: 0.9em italic;">
+        {% for error in errors %}
+        <p>- {{ error }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+    
+    </div>
+
+    <div class="form-label-group">
+    <input type="text" id="inputName" name="inputName" class="form-control" placeholder="Your name" required>
+    <label for="inputName">Your name</label>
+    </div>
+
+    <div class="form-label-group">
+    <input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+    <label for="inputEmail">Email address</label>
+    </div>
+
+    <div class="form-label-group">
+    <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Password" required>
+    <label for="inputPassword">Password</label>
+    </div>
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit" id="btnRegister">Register</button>
+    <p class="mt-5 mb-3 text-muted text-center">&copy; 2017-2019</p>
+  </form>
+{% endblock %}
+
+{% block footer %}
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/floating-labels.css') }}">   
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+  <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+{% endblock %}

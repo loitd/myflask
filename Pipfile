@@ -1,0 +1,19 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+pytest = "*"
+
+[packages]
+flask = "*"
+request = "*"
+cx-oracle = {path = "./setup/cx_Oracle-8.0.0-cp37-cp37m-win_amd64.whl"}
+lutils = "*"
+sqlalchemy = "*"
+flask-sqlalchemy = "*"
+mysqlclient = "*"
+
+[requires]
+python_version = "3.7.7"
