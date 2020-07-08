@@ -5,6 +5,7 @@ verify_ssl = true
 
 [dev-packages]
 pytest = "*"
+coverage = {path = "./setup/coverage-5.2-cp37-cp37m-win_amd64.whl"}
 
 [packages]
 flask = "*"
@@ -16,4 +17,4 @@ flask-sqlalchemy = "*"
 mysqlclient = "*"
 
 [requires]
-python_version = "3.7.7"
+python_version = "3.7"
