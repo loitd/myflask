@@ -1,10 +1,13 @@
 @ECHO OFF
-if [%1] == [] (
+IF ([%1] == []) (
 	goto GIT
+) 
+IF ([%1] == ["setup"]) (
+	goto SETUP
 )
 
 :SETUP
-REM setup
+echo Do initial setup
 REM python -m venv ./venv
 pip install pipenv
 pipenv install
