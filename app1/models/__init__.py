@@ -9,41 +9,38 @@
 
 # https://docs.sqlalchemy.org/en/13/core/engines.html
 # You may need to RE-LOGIN to see result of db.create_all() and db.drop_all() command with from models import db
+from flask_sqlalchemy import SQLAlchemy
 
-from app1.views import db
-from datetime import datetime
-from sqlalchemy import Sequence, text
-from sqlalchemy.orm import sessionmaker
+def init_db(app):
+    # DEFAULT database connection
+    # https://flask-sqlalchemy.palletsprojects.com/en/2.x/binds/
+    # MULTIPLE DATABASES for FLASK
+    # https://docs.sqlalchemy.org/en/13/core/engines.html#supported-databases
+    # Prod
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqldb://reportapi:NiDIFaXeDoCe7Ova7I3A4I33macOn6@172.16.213.18/test'
+    # Test/dev
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqldb://test:123456@localhost/test'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-class User(db.Model):
-    __tablename__ = 'tbl_users'
-    __bind_key__ = None # No Bind Key -> default db
-    id = db.Column(db.Integer, Sequence('user_id_seq'), primary_key=True, autoincrement=True)
-    email = db.Column(db.String(255), unique=True, nullable=False)
-    password = db.Column(db.String(500), nullable=False)
-    fullname = db.Column(db.String(255), nullable=False)
-    status = db.Column(db.Integer, nullable=False, default=0)
-    # created_date = db.Column(db.DateTime(timezone=True), default=datetime.now, nullable=False)
-    created_date = db.Column(db.DateTime(timezone=True), default=datetime.utcnow, nullable=False)
-    updated_date = db.Column(db.DateTime(timezone=True), default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
+    # Oracle
+    # https://cx-oracle.readthedocs.io/en/latest/user_guide/connection_handling.html#connection-pooling
+    # e = create_engine("oracle+cx_oracle://user:pass@dsn?encoding=UTF-8&nencoding=UTF-8&mode=SYSDBA&events=true")
+    # SESSION issue with multiple database in Flask: https://stackoverflow.com/questions/38374005/flask-sqlalchemy-how-do-sessions-work-with-multiple-databases
+    # https://docs.sqlalchemy.org/en/13/orm/session_transaction.html#joining-a-session-into-an-external-transaction-such-as-for-test-suites
+    # Production
+    # oraPool = cx_Oracle.SessionPool("REPORTER", "REPORTER123", "DG1", min=1, max=3, increment=1, encoding="UTF-8")
+    # Dev/Test
+    # oraPool = cx_Oracle.SessionPool("PARTNERCTH", "epay123123", "172.16.10.81:1521/DB81", min=1, max=3, increment=1, encoding="UTF-8")
+    # printlog("App & Database init done!", "monitordb.log")
+    # Remember to release after using. 
+    app.config['SQLALCHEMY_BINDS'] = {
+        'REPORTER':      'oracle+cx_oracle://PARTNERCTH:epay123123@172.16.10.81:1521/DB81',
+        # 'REPORTER':      'oracle+cx_oracle://REPORTER:REPORTER123@DG1',
+        'SQLITE':        'sqlite://', #in memory sqlite db
+    }
     
-    def __repr__(self):
-        return '<USER %r>' % self.email
-
-class DB81User(db.Model):
-    __tablename__ = 'DB81_USERS' #name must be different to distinguised
-    __bind_key__ = 'REPORTER'
-    id = db.Column(db.Integer, Sequence('DB81_USER_ID_SEQ'), primary_key=True)
-    email = db.Column(db.String(255), unique=True, nullable=False)
-    password = db.Column(db.String(555), nullable=False)
-    fullname = db.Column(db.String(255), nullable=False)
-    status = db.Column(db.Integer, nullable=False, default=0)
-    created_date = db.Column(db.DateTime(timezone=True), default=datetime.utcnow, nullable=False)
-    updated_date = db.Column(db.DateTime(timezone=True), default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
-    
-    def __repr__(self):
-        return '<REPORTER_USER %r>' % self.email
-    
+    # Integrate db to Flask app
+    return SQLAlchemy(app) #db
 
 # Create all tables for default
 # db.create_all()

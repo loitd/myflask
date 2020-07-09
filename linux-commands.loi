@@ -1,0 +1,16 @@
+Linux commands
+
+1. 
+-> find . \( -name '*.log' -o -name '*.tar.*' \) -type f -exec tar cjvf install.all.tar.bz2 {} \;
+-> find . \( -name '*.log' -o -name '*.tar.*' \) -type f -exec tar cjvf install.all.tar.bz2 {} +
+
+tìm các file có .log hoặc .tar sau đó nén dưới dạng tar.bz2
+
+2. 
+-> ls -f1 | xargs rm
+
+liệt kê mỗi file 1 dòng (-1), không sắp xếp (-f) sau đó xóa luôn file đó. Xóa file trong 1 folder có số lượng file CỰC LỚN.
+
+3.
+
+

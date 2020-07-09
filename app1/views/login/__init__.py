@@ -1,6 +1,6 @@
 from flask import render_template, request, Response, json, session, redirect, url_for, abort, escape, flash, Blueprint, current_app
 from werkzeug.security import generate_password_hash, check_password_hash
-from app1.models import db, User
+from app1.models.users import db, User
 
 # Define the BLUEPRINT here
 login_blp = Blueprint('login_blp', __name__)

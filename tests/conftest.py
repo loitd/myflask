@@ -34,7 +34,7 @@ def client():
 
     with app.test_client() as client:
         with app.app_context():
-            app.init_db()
+            init_db()
         yield client
 
     # To delete the database after the test, the fixture closes the file and removes it from the filesystem.
