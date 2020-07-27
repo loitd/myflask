@@ -30,3 +30,6 @@ Liệt kê dạng dài (long), Human readable, và Sort by size (s)
 \; dấu kết thúc lênh -exec
 Tìm các folder có tên chưa foo nhưng không kết thúc bằng .bar
 
+5. 
+-> arr = map(int, input().split())
+Python chia và convert dữ liệu về dạng int

@@ -1,5 +1,5 @@
-from app1.views import app, oraPool
-from lutils.lutils import printlog, printwait
+from app1.views import app
+from lutils.utils import printlog, printwait
 
 if __name__ == "__main__":
     try:
@@ -11,5 +11,4 @@ if __name__ == "__main__":
     finally:
         # Your destructor here
         printlog("Finally destructor called", "monitordb.log")
-        oraPool.close()
     
