@@ -2,7 +2,7 @@ from datetime import datetime
 from sqlalchemy import Sequence, text
 from sqlalchemy.orm import sessionmaker
 from werkzeug.security import generate_password_hash
-from app1.views import db
+from app1 import db
 
 class User(db.Model):
     __tablename__ = 'tbl_users'
@@ -16,8 +16,15 @@ class User(db.Model):
     created_date = db.Column(db.DateTime(timezone=True), default=datetime.utcnow, nullable=False)
     updated_date = db.Column(db.DateTime(timezone=True), default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
     
-    def __init__(self):
+    def __init__(self, email, password, fullname, status):
+        """Init function.
+        Remember: Must have all params that will be passed"""
         self.db = db
+        self.emaill = email
+        self.password = password
+        self.fullname = fullname
+        self.status = status
+        # Create the database (if not exist)
         db.create_all()
     
     def __repr__(self):

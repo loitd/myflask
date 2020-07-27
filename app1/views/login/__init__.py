@@ -39,7 +39,7 @@ def postLogin():
             return redirect(url_for('index_blp.index'))
         else:
             errors.append("Username and password combination not found.")
-            return render_template('login.html', errors=errors)
+            return render_template('auth/login.html', errors=errors)
         print("Got: {0}, {1}".format(_email, _password))
     except Exception as e:
         raise(e)

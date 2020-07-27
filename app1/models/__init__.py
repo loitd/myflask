@@ -9,18 +9,18 @@
 
 # https://docs.sqlalchemy.org/en/13/core/engines.html
 # You may need to RE-LOGIN to see result of db.create_all() and db.drop_all() command with from models import db
-from flask_sqlalchemy import SQLAlchemy
+# from flask_sqlalchemy import SQLAlchemy
+# import os
 
-def init_db(app):
+# def configure_db(app):
     # DEFAULT database connection
     # https://flask-sqlalchemy.palletsprojects.com/en/2.x/binds/
     # MULTIPLE DATABASES for FLASK
     # https://docs.sqlalchemy.org/en/13/core/engines.html#supported-databases
-    # Prod
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqldb://reportapi:NiDIFaXeDoCe7Ova7I3A4I33macOn6@172.16.213.18/test'
-    # Test/dev
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqldb://test:123456@localhost/test'
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqldb://reportapi:NiDIFaXeDoCe7Ova7I3A4I33macOn6@172.16.213.18/test'
+    # # Test/dev
+    # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqldb://test:123456@localhost/test'
+    # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     # Oracle
     # https://cx-oracle.readthedocs.io/en/latest/user_guide/connection_handling.html#connection-pooling
@@ -33,14 +33,14 @@ def init_db(app):
     # oraPool = cx_Oracle.SessionPool("PARTNERCTH", "epay123123", "172.16.10.81:1521/DB81", min=1, max=3, increment=1, encoding="UTF-8")
     # printlog("App & Database init done!", "monitordb.log")
     # Remember to release after using. 
-    app.config['SQLALCHEMY_BINDS'] = {
-        'REPORTER':      'oracle+cx_oracle://PARTNERCTH:epay123123@172.16.10.81:1521/DB81',
-        # 'REPORTER':      'oracle+cx_oracle://REPORTER:REPORTER123@DG1',
-        'SQLITE':        'sqlite://', #in memory sqlite db
-    }
+    # app.config['SQLALCHEMY_BINDS'] = {
+    #     'REPORTER':      'oracle+cx_oracle://PARTNERCTH:epay123123@172.16.10.81:1521/DB81',
+    #     'REPORTER':      'oracle+cx_oracle://REPORTER:REPORTER123@DG1',
+    #     'SQLITE':        'sqlite://', #in memory sqlite db
+    # }
     
     # Integrate db to Flask app
-    return SQLAlchemy(app) #db
+    # return SQLAlchemy(app) #db
 
 # Create all tables for default
 # db.create_all()
@@ -85,3 +85,22 @@ def init_db(app):
 # finally:
 #     reporter_session.close()
 
+from app1 import app, db
+from sqlalchemy import text
+from app1.models.users import User
+
+def init_db():
+    """
+    Init a database.
+    """
+    try:
+        # db.create_all() # Create all tables for default
+        # create an user
+        _u = User(email="admin@myflask.com", password="pbkdf2:sha256:150000$8MeWtFuN$22dd4d822ec9bc71d16841579a2bf4de92f2e2c3581341181627f7f96b03a647", fullname="Administrator", status=1)
+        # commit
+        db.session.commit()
+        return True
+    except Exception as e:
+        print("[init_db] Exception: {0}".format(e))
+        return False
+    

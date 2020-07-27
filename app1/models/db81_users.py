@@ -1,7 +1,7 @@
 from datetime import datetime
 from sqlalchemy import Sequence, text
 from sqlalchemy.orm import sessionmaker
-from app1.views import db
+from app1 import db
 
 class DB81User(db.Model):
     __tablename__ = 'DB81_USERS' #name must be different to distinguised

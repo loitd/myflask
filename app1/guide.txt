@@ -1,3 +1,13 @@
-1. Các phiên bản sử dụng
-- python 3.7 64bit windows
-- pipenv install flask flask-mysql request
+You can examine the url through several Request fields:
+
+A user requests the following URL:
+
+    http://www.example.com/myapplication/page.html?x=y
+In this case the values of the above mentioned attributes would be the following:
+
+    path             /page.html
+    script_root      /myapplication
+    base_url         http://www.example.com/myapplication/page.html
+    url              http://www.example.com/myapplication/page.html?x=y
+    url_root         http://www.example.com/myapplication/
+You can easily extract the host part with the appropriate splits.

@@ -1,4 +1,4 @@
-from app1.views import app
+from app1 import app
 from lutils.utils import printlog, printwait
 
 if __name__ == "__main__":
@@ -10,5 +10,5 @@ if __name__ == "__main__":
         raise(e)
     finally:
         # Your destructor here
-        printlog("Finally destructor called", "monitordb.log")
+        print("[Main] Finally destructor called")
     
