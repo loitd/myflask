@@ -44,6 +44,8 @@ GOTO END
 ECHO Run the app
 REM SET FLASK_ENV=development
 SET FLASK_ENV=test
+REM Oauth2 works through SSL layer. You can disable this check in two ways:
+SET OAUTHLIB_INSECURE_TRANSPORT=1
 venv\Scripts\activate && python ./main.py
 GOTO END
 

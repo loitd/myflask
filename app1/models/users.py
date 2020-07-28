@@ -9,22 +9,13 @@ class User(db.Model):
     __bind_key__ = None # No Bind Key -> default db
     id = db.Column(db.Integer, Sequence('user_id_seq'), primary_key=True, autoincrement=True)
     email = db.Column(db.String(255), unique=True, nullable=False)
-    password = db.Column(db.String(500), nullable=False)
+    password = db.Column(db.String(500), nullable=True) #loggin in by Google/Twitter -> empty password
     fullname = db.Column(db.String(255), nullable=False)
-    status = db.Column(db.Integer, nullable=False, default=0)
+    status = db.Column(db.Integer, nullable=False, default=0) #0: not confirmed email, 1 confirmed
+    authtype = db.Column(db.Integer, nullable=False, default=0) #0: normal, 1: google, 2: facebook, 3: twitter, 4: github
     # created_date = db.Column(db.DateTime(timezone=True), default=datetime.now, nullable=False)
     created_date = db.Column(db.DateTime(timezone=True), default=datetime.utcnow, nullable=False)
     updated_date = db.Column(db.DateTime(timezone=True), default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
-    
-    def __init__(self, email, password, fullname, status):
-        """Init function.
-        Remember: Must have all params that will be passed"""
-        self.email = email
-        self.password = password
-        self.fullname = fullname
-        self.status = status
-        # Create the database (if not exist)
-        db.create_all()
     
     def __repr__(self):
         return '<USER %r>' % self.email

@@ -50,13 +50,14 @@ workflows:
   deploy_to_heroku:
     jobs:
       - build_test
-      - hold:
-          type: approval
-          requires:
-            - build_test
+      # - hold:
+      #     type: approval
+      #     requires:
+      #       - build_test
       - deploy:
           requires:
-            - hold
+            - build_test
+            # - hold
           filters:
             branches:
               only: master
