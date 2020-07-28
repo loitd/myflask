@@ -2,7 +2,7 @@ version: 2
 # https://circleci.com/docs/2.0/sample-config/
 # https://circleci.com/docs/2.0/configuration-reference/
 jobs:
-  build:
+  build_test:
     # executor: python/default
     docker:
       - image: circleci/python:3.7.8-stretch-node
@@ -25,11 +25,6 @@ jobs:
       - run:
           command: mkdir -p test_reports
           name: Make test_reports
-  test:
-    docker:
-      - image: circleci/python:3.7.8-stretch-node
-    steps:
-      - checkout
       - run:
           command: |
             source venv/bin/activate
@@ -40,16 +35,16 @@ jobs:
           path: test_reports/
       - store_test_results:
           path: test_reports/
-      - run:
-          command: |
-            export HEROKU_APP_NAME=loi-flask
-            export HEROKU_API_KEY=07ddad3a-9ac9-433e-94fc-79cb1ef0d7ed
-          name: prepare_heroku
   deploy:
     docker:
       - image: circleci/python:3.7.8-stretch-node
     steps:
       - checkout
+      - run:
+          command: |
+            export HEROKU_APP_NAME=loi-flask
+            export HEROKU_API_KEY=07ddad3a-9ac9-433e-94fc-79cb1ef0d7ed
+          name: prepare_heroku
       - run:
           command: |
             git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
@@ -59,13 +54,10 @@ workflows:
   version: 2
   deploy_to_heroku:
     jobs:
-      - build
-      - test:
-          requires:
-            - build
+      - build_test
       - deploy:
           requires:
-            - test
+            - build_test
           filters:
             branches:
               only: master
