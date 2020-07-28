@@ -11,9 +11,10 @@ _templates = os.path.join(os.path.dirname(__file__), 'templates')
 
 app = Flask(__name__, static_folder = _static, template_folder=_templates)
 
-if os.environ.get("FLASK_ENV").upper() == "PRODUCTION":
+# Check both this env exists and equals to
+if os.environ.get("FLASK_ENV") and os.environ.get("FLASK_ENV").upper() == "PRODUCTION":
     app.config.from_object('app1.config.ProductionConfig')
-elif os.environ.get("FLASK_ENV").upper() == "DEVELOPMENT":
+elif os.environ.get("FLASK_ENV") and os.environ.get("FLASK_ENV").upper() == "DEVELOPMENT":
     app.config.from_object('app1.config.DevelopmentConfig')
 else:
     app.config.from_object('app1.config.TestConfig')
