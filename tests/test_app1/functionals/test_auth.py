@@ -10,9 +10,36 @@ def test_unauth_access(client, theapp):
     # yes, it is redirected
 
 def test_login(client, theapp):
+    # Test successful
     data = dict(
-        username="admin@myflask.com",
-        password="123456"
+        inputEmail="admin@myflask.com",
+        inputPassword="123456"
     )
-    assert client.post(url_for('login_blp.getLogin'), data=data, follow_redirects=True).status_code == 200
-    assert client.post(url_for('login_blp.getLogin'), data=data, follow_redirects=True).headers.get("Location") == None
+    postLogin = client.post(url_for('login_blp.postLogin'), data=data, follow_redirects=True)
+    assert postLogin.status_code == 200
+    assert postLogin.headers.get("Location") == None
+    # Test failed
+    data = dict(
+        inputEmail="admin@myflask.com",
+        inputPassword="123"
+    )
+    postLogin = client.post(url_for('login_blp.postLogin'), data=data, follow_redirects=True)
+    assert postLogin.status_code == 200
+
+def test_register(client, theapp):
+    # Test register new user with blank
+    data = dict(
+        inputName="",
+        inputEmail="",
+        inputPassword=""
+    )
+    postRegister = client.post(url_for('register_blp.postRegister'), data=data, follow_redirects=True)
+    assert postRegister.status_code == 200
+    # Test successful register
+    data = dict(
+        inputName="Johnny",
+        inputEmail="john@myflask.com",
+        inputPassword="123456"
+    )
+    postRegister = client.post(url_for('register_blp.postRegister'), data=data, follow_redirects=True)
+    assert postRegister.status_code == 200

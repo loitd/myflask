@@ -22,19 +22,23 @@ def postRegister():
         _name = request.form.get('inputName', None)
         _email = request.form.get('inputEmail', None)
         _password = request.form.get('inputPassword', None)
-        _hashpassword = generate_password_hash(_password)
-        print("Got: {0}, {1}, {2}, {3}".format(_name, _email, _password, _hashpassword))
+        # print("Got: {0}, {1}, {2}, {3}".format(_name, _email, _password))
         if _name and _email and _password:
+            _hashpassword = generate_password_hash(_password)
             row = db.session.query(User).filter_by(email=_email).first()
             if row and row.email == _email:
                 errors.append("Email already exists.")
                 print(errors)
-                return render_template('signup.html', errors=errors)
+                return render_template('auth/signup.html', errors=errors)
             else:
                 _usr = User(email=_email, password=_hashpassword, fullname=_name, status=0)
                 db.session.add(_usr)
                 db.session.commit()
                 return redirect(url_for('login_blp.getLogin'))
+        else:
+            errors.append("No blank field(s) please.")
+            print(errors)
+            return render_template('auth/signup.html', errors=errors)
     except Exception as e:
         raise(e)
         print(e)

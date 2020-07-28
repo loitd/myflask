@@ -20,7 +20,7 @@ class User(db.Model):
         """Init function.
         Remember: Must have all params that will be passed"""
         self.db = db
-        self.emaill = email
+        self.email = email
         self.password = password
         self.fullname = fullname
         self.status = status

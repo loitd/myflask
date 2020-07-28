@@ -30,17 +30,21 @@ def postLogin():
         _email = request.form.get('inputEmail', None)
         _password = request.form.get('inputPassword', None)
         hashedpassword = None
-        row = db.session.query(User).filter_by(email=_email).first()
-        if row is not None: hashedpassword = row.password
-        # print(rows)
-        if row and check_password_hash(hashedpassword, _password) and hashedpassword:
-            session['email'] = _email
-            print("session set")
-            return redirect(url_for('index_blp.index'))
+        if _email and _password:
+            row = db.session.query(User).filter_by(email=_email).first()
+            if row is not None: hashedpassword = row.password
+            # print(rows)
+            if row and check_password_hash(hashedpassword, _password) and hashedpassword:
+                session['email'] = _email
+                print("session set")
+                return redirect(url_for('index_blp.index'))
+            else:
+                errors.append("Username and password combination not found.")
+                return render_template('auth/login.html', errors=errors)
+            print("Got: {0}, {1}".format(_email, _password))
         else:
-            errors.append("Username and password combination not found.")
+            errors.append("No blank field(s) please")
             return render_template('auth/login.html', errors=errors)
-        print("Got: {0}, {1}".format(_email, _password))
     except Exception as e:
         raise(e)
         pass
