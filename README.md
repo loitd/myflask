@@ -1,5 +1,6 @@
 # myflask
-[![codecov](https://codecov.io/gh/loitd/myflask/branch/master/graph/badge.svg)](https://codecov.io/gh/loitd/myflask)  
+[![codecov](https://codecov.io/gh/loitd/myflask/branch/master/graph/badge.svg)](https://codecov.io/gh/loitd/myflask)
+[![lutils](https://circleci.com/gh/loitd/myflask.svg?style=svg)](https://circleci.com/gh/loitd/myflask)  
 My Python Flask Template with pre-configured Flask, SQLAlchemy (to MySQL, Oracle, SQLite). Tested and CI/CD with Pytest, Circle CI, Heroku.
 ## Links
 * Demo: [https://loi-flask.herokuapp.com/login](https://loi-flask.herokuapp.com/login)

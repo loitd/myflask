@@ -8,17 +8,9 @@ workflows:
   deploy_to_heroku:
     jobs:
       - build
-      - test:
-          requires:
-            - build
-      - hold:
-          type: approval
-          requires:
-            - build
-            - test
       - heroku/deploy-via-git: # Use the pre-configured job, deploy-via-git
           requires:
-            - hold
+            - build
           filters:
             branches:
               only: master
@@ -33,8 +25,6 @@ jobs:
       - python/install-deps
       - python/save-cache
       - run: mkdir test_reports
-  test:
-    steps:
       - run:
         name: unit tests & codecov
         command: |
