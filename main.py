@@ -1,10 +1,9 @@
-from app1 import app
+from app1 import create_app
 from lutils.utils import printlog, printwait
 
 if __name__ == "__main__":
     try:
-        # debug = True to forece flask reload when code changed
-        # app.config.from_object('config.DevelopmentConfig')
+        app = create_app()
         app.run(host="0.0.0.0", port=9001, debug=True)
     except Exception as e:
         raise(e)

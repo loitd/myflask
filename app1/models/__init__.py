@@ -85,22 +85,22 @@
 # finally:
 #     reporter_session.close()
 
-from app1 import app, db
 from sqlalchemy import text
 from app1.models.users import User
 
-def init_db():
+def init_db(app, db):
     """
     Init a database.
     """
     try:
-        # db.create_all() # Create all tables for default
-        # create an user
-        _u = User(email="admin@myflask.com", password="pbkdf2:sha256:150000$8MeWtFuN$22dd4d822ec9bc71d16841579a2bf4de92f2e2c3581341181627f7f96b03a647", fullname="Administrator", status=1)
-        # commit
-        db.session.commit()
-        return True
+        with app.app_context():
+            # db.create_all() # Create all tables for default
+            # create an administrator user
+            _u = User(email="admin@myflask.com", password="pbkdf2:sha256:150000$8MeWtFuN$22dd4d822ec9bc71d16841579a2bf4de92f2e2c3581341181627f7f96b03a647", fullname="Administrator", status=1)
+            db.session.add(_u)
+            db.session.commit()
+            print("[init_db] Database initialized!")
+            return True
     except Exception as e:
         print("[init_db] Exception: {0}".format(e))
         return False
-    

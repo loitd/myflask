@@ -42,7 +42,8 @@ GOTO END
 
 :RUN
 ECHO Run the app
-SET FLASK_ENV=development
+REM SET FLASK_ENV=development
+SET FLASK_ENV=test
 venv\Scripts\activate && python ./main.py
 GOTO END
 
@@ -50,7 +51,7 @@ GOTO END
 ECHO Run the app TEST
 SET FLASK_ENV=test
 REM venv\Scripts\activate && python -m pytest --cov=app1 --cov-report=xml --junitxml=test_reports/junit.xml && python -m codecov --token=5116b8f0-c09b-482b-b494-5fd66df4f6b3
-venv\Scripts\activate && python -m pytest --cov=app1
+venv\Scripts\activate && python -m pytest --cov=app1 -s
 GOTO END
 
 :END

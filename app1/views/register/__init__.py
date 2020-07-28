@@ -1,6 +1,7 @@
 from flask import render_template, request, Response, json, session, redirect, url_for, abort, escape, flash, Blueprint, current_app
 from werkzeug.security import generate_password_hash, check_password_hash
 from app1.models.users import db, User
+from app1.views import Const
 
 # Define the BLUEPRINT here
 register_blp = Blueprint('register_blp', __name__)
@@ -27,7 +28,7 @@ def postRegister():
             _hashpassword = generate_password_hash(_password)
             row = db.session.query(User).filter_by(email=_email).first()
             if row and row.email == _email:
-                errors.append("Email already exists.")
+                errors.append(Const.MSG_USER_EXISTED)
                 print(errors)
                 return render_template('auth/signup.html', errors=errors)
             else:
@@ -36,7 +37,7 @@ def postRegister():
                 db.session.commit()
                 return redirect(url_for('login_blp.getLogin'))
         else:
-            errors.append("No blank field(s) please.")
+            errors.append(Const.MSG_BLANK_FIELDS_SUBMITTED)
             print(errors)
             return render_template('auth/signup.html', errors=errors)
     except Exception as e:
