@@ -44,20 +44,22 @@ jobs:
           command: |
             export HEROKU_APP_NAME=loi-flask
             export HEROKU_API_KEY=07ddad3a-9ac9-433e-94fc-79cb1ef0d7ed
-          name: prepare_heroku
-      - run:
-          command: |
-            git push https://heroku:07ddad3a-9ac9-433e-94fc-79cb1ef0d7ed@git.heroku.com/loi-flask.git master
+            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
           name: Deploy to heroku
+          # git push https://heroku:07ddad3a-9ac9-433e-94fc-79cb1ef0d7ed@git.heroku.com/loi-flask.git master
 
 workflows:
   version: 2
   deploy_to_heroku:
     jobs:
       - build_test
-      - deploy:
+      - hold:
+          type: approval
           requires:
             - build_test
+      - deploy:
+          requires:
+            - hold
           filters:
             branches:
               only: master
