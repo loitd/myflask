@@ -7,3 +7,4 @@ def test_init_db(db):
     _row = db.session.query(User).filter_by(email="admin@myflask.com").first()
     assert _row is not None #existed
     assert _row.email == "admin@myflask.com"
+    

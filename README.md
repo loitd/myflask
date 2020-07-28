@@ -13,6 +13,8 @@ This is how to install this template:
 * `python -m venv venv`
 * `source venv/bin/activate`
 * `(venv) pip install -r requirements.txt`  
+* `(venv) python main.py`  
 ## Notes
 * `Python 3.7` is recommended
+* `Python 3.7.8` tested with
 

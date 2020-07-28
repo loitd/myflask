@@ -1,93 +1,55 @@
 version: 2.1
 # https://circleci.com/docs/2.0/sample-config/
+
+orbs:
+  heroku: circleci/heroku@1.1.1 # Use the Heroku orb in your config
+
+workflows:
+  deploy_to_heroku:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - hold:
+          type: approval
+          requires:
+            - build
+            - test
+      - heroku/deploy-via-git: # Use the pre-configured job, deploy-via-git
+          requires:
+            - hold
+          filters:
+            branches:
+              only: master
+
 jobs:
   build:
-    working_directory: ~/project #default
     docker:
-      - image: circleci/python:3.7.8-stretch-node #use python 3.7
-        environment:
-          PIPENV_VENV_IN_PROJECT: enabled
-      # - image: circleci/postgres:9.6.5-alpine-ram
-      #   environment:
-      #     POSTGRES_USER: ubuntu
-      #     POSTGRES_DB: circle_test
-      #     POSTGRES_PASSWORD: ''
+      - image: circleci/python:3.7.8-stretch-node
     steps:
       - checkout
-      - run: mkdir test-reports
-      # - run:
-      #     name: Download Selenium
-      #     command: |
-      #       curl -O http://selenium-release.storage.googleapis.com/3.5/selenium-server-standalone-3.5.3.jar
-      # - run:
-      #     name: Start Selenium
-      #     command: |
-      #       java -jar selenium-server-standalone-3.5.3.jar -log test-reports/selenium.log
-      #     background: true
-      - restore_cache:
-          # key: deps2-{{ .Branch }}-{{ checksum "requirements/dev.txt" }}
-          key: deps2-{{ .Branch }}-{{ checksum "Pipfile" }}
+      - python/load-cache
+      - python/install-deps
+      - python/save-cache
+      - run: mkdir test_reports
+  test:
+    steps:
       - run:
-            name: Install Dependencies
-            command: |
-              python3 -m venv .env
-              source .env/bin/activate
-              pip install -r ./requirements.txt
-      # - run:
-      #     command: |
-      #       python3 -m venv venv
-      #       . venv/bin/activate
-      #       pip install -r requirements/dev.txt
-      # - run:
-      #     name: setup Heroku
-      #     command: bash .circleci/setup-heroku.sh
-      - save_cache:
-          # key: deps2-{{ .Branch }}-{{ checksum "requirements/dev.txt" }}
-          key: deps2-{{ .Branch }}-{{ checksum "Pipfile" }}
-          paths:
-            # - 'venv'
-            - '.env'
-      - run:
-            name: Unit tests #remember to ACTIVATE venv in EACH STEP
-            command: |
-              source .env/bin/activate
-              python -m pytest --cov=lutils --cov-report=xml --junitxml=test-reports/junit.xml
-              python -m codecov --token=1aa8175d-dd1b-4608-9a44-867903349afe
-      # - run:
-      #     command: |
-      #       . venv/bin/activate
-      #       python manage.py test
+        name: unit tests & codecov
+        command: |
+          source .env/bin/activate
+          python -m pytest --cov=app1 --cov-report=xml --junitxml=test_reports/junit.xml
+          python -m codecov --token=5116b8f0-c09b-482b-b494-5fd66df4f6b3
       - store_artifacts:
-          path: test-reports/
-          # destination: tr1
+          path: test_reports/
       - store_test_results:
-          path: test-reports/
-      # - add_ssh_keys:
-      #     fingerprints:
-      #       - '48:a0:87:54:ca:75:32:12:c6:9e:a2:77:a4:7a:08:a4'
-      # - deploy:
-      #     name: Deploy Master to Heroku
-      #     command: |
-      #       if [ "${CIRCLE_BRANCH}" == "master" ]; then
-      #         git push heroku master
-      #         heroku run python manage.py deploy
-      #         heroku restart
-      #       fi
+          path: test_reports/
+      - prepare_heroku:
+          name: Prepare Heroku deployment
+          command: |
+            export HEROKU_APP_NAME=loi-flask
+            export HEROKU_API_KEY=07ddad3a-9ac9-433e-94fc-79cb1ef0d7ed
 
 # Orchestrate our job run sequence. Approval Job
 # The build job runs, then the test job, then a hold job, with type: approval ensures the workflow waits for manual approval before the deploy job can run.
-workflows:
-  build_and_test:
-    jobs:
-      - build
-      # - test:
-      #     requires:
-      #       - build
-      # - hold:
-      #     type: approval
-      #     requires:
-      #       - build
-      #       - test
-      # - deploy:
-      #     requires:
-      #       - hold
