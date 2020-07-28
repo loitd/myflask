@@ -23,7 +23,7 @@ jobs:
           paths:
             - "venv"
       - run:
-          command: mkdir test_reports
+          command: mkdir -p test_reports
           name: Make test_reports
   test:
     docker:
