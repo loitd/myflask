@@ -1,29 +1,39 @@
-version: 2.1
+version: 2
 # https://circleci.com/docs/2.0/sample-config/
-
-orbs:
-  # python: circleci/python@0.2.1
-  heroku: circleci/heroku@1.1.1 # Use the Heroku orb in your config
 
 jobs:
   build:
     # executor: python/default
     docker:
       - image: circleci/python:3.7.8-stretch-node
+        environment:
+          AUTHOR: Tran-Duc-Loi
     steps:
       - checkout
-      - python/load-cache
-      - python/install-deps
-      - python/save-cache
+      - restore_cache:
+          key: deps9-{{ .Branch }}-{{ checksum "requirements.txt" }}
+      - run:
+          name: Install deps
+          command: |
+            python -m venv venv
+            source venv/bin/activate
+            pip install -r requirements.txt
+      - save_cache:
+          key: deps9-{{ .Branch }}-{{ checksum "requirements.txt" }}
+          paths:
+            - "venv"
       - run:
           command: mkdir test_reports
           name: Make test_reports
+  test:
+    steps:
+      - checkout
       - run:
-          command: |
-            source .env/bin/activate
-            python -m pytest --cov=app1 --cov-report=xml --junitxml=test_reports/junit.xml
-            python -m codecov --token=5116b8f0-c09b-482b-b494-5fd66df4f6b3
-          name: unit tests & codecov
+        command: |
+          source venv/bin/activate
+          python -m pytest --cov=app1 --cov-report=xml --junitxml=test_reports/junit.xml
+          python -m codecov --token=5116b8f0-c09b-482b-b494-5fd66df4f6b3
+        name: unit tests & codecov
       - store_artifacts:
           path: test_reports/
       - store_test_results:
@@ -33,14 +43,24 @@ jobs:
             export HEROKU_APP_NAME=loi-flask
             export HEROKU_API_KEY=07ddad3a-9ac9-433e-94fc-79cb1ef0d7ed
           name: prepare_heroku
+  deploy:
+    steps:
+      - checkout
+      - run:
+        command: |
+          git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+        name: Deploy to heroku
 
 workflows:
   deploy_to_heroku:
     jobs:
       - build
-      - heroku/deploy-via-git: # Use the pre-configured job, deploy-via-git
+      - test:
           requires:
             - build
+      - deploy:
+          requires:
+            - test
           filters:
             branches:
               only: master
