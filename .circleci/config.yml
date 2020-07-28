@@ -52,6 +52,7 @@ jobs:
         name: Deploy to heroku
 
 workflows:
+  version: 2
   deploy_to_heroku:
     jobs:
       - build
