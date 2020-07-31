@@ -15,6 +15,15 @@ def index():
         return render_template('home/index.html')
     else:
         return redirect(url_for('login_blp.getLogin'))
+    
+@index_blp.route('/profile', methods = ['GET'])
+def profile():
+    if 'email' in session:
+        _sessionemail = session['email']
+        user = {"email": _sessionemail}
+        return render_template('home/profile.html', user=user)
+    else:
+        return redirect(url_for('login_blp.getLogin'))
 
 @index_blp.route('/hello', methods=['GET'])
 @login_required

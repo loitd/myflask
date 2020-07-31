@@ -4,9 +4,19 @@ from app1.models.users import db, User
 from app1.views import Const
 import requests
 from oauthlib.oauth2 import WebApplicationClient
+from flask_dance.contrib.github import make_github_blueprint, github
 
 # Define the BLUEPRINT here
 oauth_blp = Blueprint('oauth_blp', __name__)
+
+# create blp
+github_blp = make_github_blueprint(
+    client_id="baaf3aceeb0df1ff10cd",
+    client_secret="bdc3bbeb8f2151e5b363490ed564e76765c009da",
+    login_url="/oauth/gh/login", #the URL path for the login view. Defaults to /github
+    authorized_url="/oauth/gh/authorized", #the URL path for the authorized view. Defaults to /github/authorized
+    redirect_url="/oauth/gh", #the URL to redirect to after the authentication dance is complete
+)
 
 # CONST
 GG_CLIENT_ID="295954188669-rkk71kee7me6p5det62ruuu8vg91kd6f.apps.googleusercontent.com"
@@ -15,6 +25,20 @@ GG_DISCOVERY_URL="https://accounts.google.com/.well-known/openid-configuration"
 
 # OAuth 2 client setup
 client = WebApplicationClient(GG_CLIENT_ID)
+
+def _social_login(email, fullname):
+    # Here is for auth successfully
+    # Write all information to the database
+    row = db.session.query(User).filter_by(email=email).first()
+    if row is None:
+        # Not yet registered 
+        _usr = User(email=email, password="", fullname=fullname, status=0, authtype=1)
+        db.session.add(_usr)
+        db.session.commit()
+    # login
+    session['email'] = email
+    # print("session set")
+    return redirect(url_for('index_blp.index'))
 
 # @app.route('/login', methods=['GET'])
 @oauth_blp.route('/oauth/gg', methods=['GET'])
@@ -72,14 +96,15 @@ def getGoogleCallback():
         return "User email not available or not verified by Google.", 400
     # Here is for auth successfully
     # Write all information to the database
-    row = db.session.query(User).filter_by(email=_email).first()
-    if row is None:
-        # Not yet registered 
-        _usr = User(email=_email, password="", fullname=_name, status=0, authtype=1)
-        db.session.add(_usr)
-        db.session.commit()
-    # login
-    session['email'] = _email
-    # print("session set")
-    return redirect(url_for('index_blp.index'))
-    
+    return _social_login(email=_email, fullname=_name)
+
+@oauth_blp.route('/oauth/gh', methods=['GET'])
+def getGithub():
+    if not github.authorized:
+        return redirect(url_for("github.login"))
+    resp = github.get("/user")
+    assert resp.ok
+    # return resp.json() # all got information
+    _email = "{0}@github.com".format(resp.json()["login"])
+    _name = resp.json()["name"]
+    return _social_login(email=_email, fullname=_name) 

@@ -2,6 +2,7 @@ from flask import render_template, request, Response, json, session, redirect, u
 from werkzeug.security import generate_password_hash, check_password_hash
 from app1.models.users import db, User
 from app1.views import Const
+# from flask_login import logout_user
 
 # Define the BLUEPRINT here
 login_blp = Blueprint('login_blp', __name__)
@@ -54,4 +55,5 @@ def postLogin():
 @login_blp.route('/logout', methods = ['GET'])
 def getLogout():
     session.pop('email', None)
+    # logout_user()
     return redirect(url_for('index_blp.index'))

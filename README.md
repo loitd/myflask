@@ -6,7 +6,7 @@ My Python Flask Template with:
 * Pre-configured SQLAlchemy ORM (to MySQL, Oracle, SQLite, Postgres)
 * Frontend with Bootstrap 4
 * Coding, testing and deploying automated using CI/CD with Pytest, Codecov, Circle CI, Heroku.
-* Google authentication beside classic email/password.
+* Social authentication beside classic email/password.
 * Backend API with Flask
 ## Links
 * Demo: [https://loi-flask.herokuapp.com/](https://loi-flask.herokuapp.com/)

@@ -5,6 +5,7 @@ from flask import Flask, current_app
 from lutils.utils import printlog, printwait
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+# from flask_login import LoginManager
 import os
 
 _static = os.path.join(os.path.dirname(__file__), 'static')
@@ -42,11 +43,13 @@ def create_app(theConfig=None):
     from app1.views.login import login_blp
     from app1.views.register import register_blp
     from app1.views.oauth import oauth_blp
+    from app1.views.oauth import github_blp
 
     _app.register_blueprint(index_blp)
     _app.register_blueprint(login_blp)
     _app.register_blueprint(register_blp)
     _app.register_blueprint(oauth_blp)
+    _app.register_blueprint(github_blp)
     # return
     # return app, db
     print("[app1] Application created")
