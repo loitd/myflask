@@ -28,15 +28,32 @@ $('#modal1').on('show.bs.modal', function (event) {
 })
 
 $('#btnyes').click(function(){
+    var _cmd = document.getElementById('modal1target').innerHTML;
     setTimeout(()=>{
         $('#modal1').modal('toggle');
-        console.log("Hello!"); 
+        console.log("Hello!"+_cmd); 
         $('.overlay').addClass("show");
         $('.spanner').addClass("show");
         setTimeout(() => { 
-            console.log("World!"); 
-            $('.overlay').removeClass("show");
-            $('.spanner').removeClass("show");
-        }, 2000);
-    }, 300);
+            // console.log("World!"); 
+            // $('.overlay').removeClass("show");
+            // $('.spanner').removeClass("show");
+            $.ajax({
+                method: "POST",
+                url: "/api/v1.0/swich",
+                data: { name: "John", location: "Boston", cmd: _cmd }
+            }).done(function(resp) {
+                $('.overlay').removeClass("show");
+                $('.spanner').removeClass("show");
+                $modal = $('<div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="exampleModalLabel">Result</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body"><p>'+resp.htmlmsg+'</p></div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button></div></div></div></div>');
+                $('body').append($modal);
+                setTimeout(()=>{
+                    $modal.modal('show');
+                }, 100);
+                console.log(resp);
+            }).fail(function() {
+                alert( "error" );
+            });
+        }, 100);
+    }, 100);
 });

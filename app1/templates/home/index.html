@@ -57,10 +57,11 @@
           </div>
           <div class="card-body">
             <h5 class="card-title">Switch Channel</h5>
-            <p class="card-text">To switch channels. Yes, it's automated with CI/CD.</p>
-            <button type="button" class="btn btn-primary swchannelbtn col-md-3" id="btn2onepay" data-toggle="modal" data-target="#modal1" data-w2="to A">To A</button>
-            <button type="button" class="btn btn-success swchannelbtn col-md-3" id="btn2onepay" data-toggle="modal" data-target="#modal1" data-w2="to B">To B</button>
-            <button type="button" class="btn btn-danger  swchannelbtn col-md-5" id="btn2onepay" data-toggle="modal" data-target="#modal1" data-w2="Rollback">Rollback</button>
+            <p class="card-text">To execute commands in the backend API and show result here.</p> 
+            <p>Yes, it's automated with CI/CD.</p>
+            <button type="button" class="btn btn-primary swchannelbtn col-md-3" id="btn2onepay" data-toggle="modal" data-target="#modal1" data-w2="switch to A">To A</button>
+            <button type="button" class="btn btn-success swchannelbtn col-md-3" id="btn2onepay" data-toggle="modal" data-target="#modal1" data-w2="switch to B">To B</button>
+            <button type="button" class="btn btn-danger  swchannelbtn col-md-5" id="btn2onepay" data-toggle="modal" data-target="#modal1" data-w2="rollback">Rollback</button>
           </div>
         </div>
 
@@ -82,7 +83,7 @@
       </button>
     </div>
     <div class="modal-body">
-      <p>We will now do our Channel Switching <b><span id="modal1target" style="color: red;"></span></b>.</p>
+      <p>We will now do your command: <b><span id="modal1target" style="color: red;"></span></b>?</p>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -93,7 +94,7 @@
   </div>
 
   <!-- OVERLAY -->
-  <div class="overlay">
+  <div class="overlay" id="overlay1">
     <div class="overlayspinner">
       <div class="spinner-grow text-success" role="status">
         <span class="sr-only">Loading...</span>
