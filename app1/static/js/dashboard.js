@@ -40,7 +40,7 @@ $('#btnyes').click(function(){
             // $('.spanner').removeClass("show");
             $.ajax({
                 method: "POST",
-                url: "/api/v1.0/swich",
+                url: "/api/v1_0/swich",
                 data: { name: "John", location: "Boston", cmd: _cmd }
             }).done(function(resp) {
                 $('.overlay').removeClass("show");

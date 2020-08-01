@@ -44,12 +44,14 @@ def create_app(theConfig=None):
     from app1.views.register import register_blp
     from app1.views.oauth import oauth_blp
     from app1.views.oauth import github_blp
+    from app1.views.api.v1_0 import api_v1_0_blp
 
     _app.register_blueprint(index_blp)
     _app.register_blueprint(login_blp)
     _app.register_blueprint(register_blp)
     _app.register_blueprint(oauth_blp)
     _app.register_blueprint(github_blp)
+    _app.register_blueprint(api_v1_0_blp)
     # return
     # return app, db
     print("[app1] Application created")
