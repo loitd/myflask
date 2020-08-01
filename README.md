@@ -30,6 +30,8 @@ This is how to install this template:
 * `(venv) flask add-seed`  
 * `(venv) flask run`  
 ### Docker
+* Clone to your local:  
+`git clone https://github.com/loitd/myflask && cd myflask`  
 * Create the MariaDB container (root password will be printed to console):  
 * `sudo docker run --name mariadb -d -e MYSQL_RANDOM_ROOT_PASSWORD=yes -e MYSQL_DATABASE=myflask -e MYSQL_USER=myflask -e MYSQL_PASSWORD=mypassword mariadb:10.5`  
 * Check with `sudo docker ps` command  

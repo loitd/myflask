@@ -1,7 +1,7 @@
 # https://goinbigdata.com/docker-run-vs-cmd-vs-entrypoint/
 FROM python:3.7-slim
 
-RUN adduser -D myflask
+RUN adduser myflask
 
 WORKDIR /home/myflask
 
