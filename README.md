@@ -39,10 +39,12 @@ This is how to install this template:
 * `sudo docker build -t myflask:latest .`  
 * Check with `sudo docker images` command  
 * Run a container for that image (mapping host port 9001 to container port 5000 + remove when terminated):  
-* `sudo docker run -d -p 9001:5000 --rm myflask:latest -e GH_CLIENT_KEY=xxx -e GH_CLIENT_SECRET=xxx -e GG_CLIENT_ID=xxx -e GG_CLIENT_SECRET=xxx -e SQLALCHEMY_DATABASE_URI=mysql+mysqldb://myflask:mypassword@localhost/myflask`  
+* `sudo docker run -d -p 9001:5000 --rm myflask:latest -e GH_CLIENT_KEY=xxx -e GH_CLIENT_SECRET=xxx -e GG_CLIENT_ID=xxx -e GG_CLIENT_SECRET=xxx -e SQLALCHEMY_DATABASE_URI=mysql+pymysql://myflask:mypassword@localhost/myflask`  
 ## Notes
 * `Python 3.7` is recommended
 * `Python 3.7.8` tested with
+* Do NOT use `mysqlclient==2.0.1` since it has problem installing on Docker. Moved to `PyMySQL==0.10.0`.  
+* Do NOT use `psycopg2==2.8.5` since it has problem installing on Docker. Moved to `pg8000==1.16.3`.  
 * To setup data base and data seed on Heroku:  
     - Select run console  
     ![Run console](https://github.com/loitd/myflask/blob/master/heroku-config-01.png?raw=true)
