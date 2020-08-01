@@ -12,7 +12,7 @@ def test_unauth_access(app, client):
         assert client.get("/").headers.get("Location") == "{0}{1}".format(request.base_url[0:-1], url_for('login_blp.getLogin'))
         # yes, it is redirected
 
-def test_login(app, client):
+def test_login(app, client, db): #need DB to init the database for the test
     # Wrap your thread code in a test_request_context so you have access to context locals:
     with app.test_request_context():
         # Test render without errors
@@ -37,7 +37,7 @@ def test_login(app, client):
         assert postLogin.headers.get("Location") == None # no redirection
         assert Const.MSG_USER_NOTFOUND in postLogin.data.decode("utf-8")
 
-def test_login_success(app, client):
+def test_login_success(app, client, db):
     # Wrap your thread code in a test_request_context so you have access to context locals:
     with app.test_request_context():
         # Test successful

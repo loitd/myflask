@@ -19,7 +19,7 @@ github_blp = make_github_blueprint(
 )
 
 # OAuth 2 client setup
-client = WebApplicationClient(GG_CLIENT_ID)
+client = WebApplicationClient(Const._GG_CLIENT_ID)
 
 def _social_login(email, fullname):
     # Here is for auth successfully
