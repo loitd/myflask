@@ -11,17 +11,12 @@ oauth_blp = Blueprint('oauth_blp', __name__)
 
 # create blp
 github_blp = make_github_blueprint(
-    client_id="baaf3aceeb0df1ff10cd",
-    client_secret="bdc3bbeb8f2151e5b363490ed564e76765c009da",
+    client_id=Const._GH_CLIENT_KEY,
+    client_secret=Const._GH_CLIENT_SECRET,
     login_url="/oauth/gh/login", #the URL path for the login view. Defaults to /github
     authorized_url="/oauth/gh/authorized", #the URL path for the authorized view. Defaults to /github/authorized
     redirect_url="/oauth/gh", #the URL to redirect to after the authentication dance is complete
 )
-
-# CONST
-GG_CLIENT_ID="295954188669-rkk71kee7me6p5det62ruuu8vg91kd6f.apps.googleusercontent.com"
-GG_CLIENT_SECRET="CUrSCZKHUvOtH-KoWh4AJiFS"
-GG_DISCOVERY_URL="https://accounts.google.com/.well-known/openid-configuration"
 
 # OAuth 2 client setup
 client = WebApplicationClient(GG_CLIENT_ID)
@@ -43,7 +38,7 @@ def _social_login(email, fullname):
 # @app.route('/login', methods=['GET'])
 @oauth_blp.route('/oauth/gg', methods=['GET'])
 def getGoogle():
-    gg_provider_config = requests.get(GG_DISCOVERY_URL).json()
+    gg_provider_config = requests.get(Const._GG_DISCOVERY_URL).json()
     oauth_endpoint = gg_provider_config["authorization_endpoint"]
     # Use library to construct the request for Google login and provide
     # scopes that let you retrieve user's profile from Google
@@ -60,7 +55,7 @@ def getGoogleCallback():
     code = request.args.get("code")
     # Find out what URL to hit to get tokens that allow you to ask for
     # things on behalf of a user
-    gg_provider_config = requests.get(GG_DISCOVERY_URL).json()
+    gg_provider_config = requests.get(Const._GG_DISCOVERY_URL).json()
     token_endpoint = gg_provider_config["token_endpoint"]
     # Prepare and send a request to get tokens! Yay tokens!
     token_url, headers, body = client.prepare_token_request(
@@ -73,7 +68,7 @@ def getGoogleCallback():
         token_url,
         headers=headers,
         data=body,
-        auth=(GG_CLIENT_ID, GG_CLIENT_SECRET),
+        auth=(Const._GG_CLIENT_ID, Const._GG_CLIENT_SECRET),
     )
 
     # Parse the tokens!

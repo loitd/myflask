@@ -35,8 +35,8 @@ def create_app(theConfig=None):
     mig.init_app(_app, db)
 
     # Now initialize the database
-    from app1.models import init_db
-    init_db(_app, db)
+    import commands
+    commands.init_app(_app)
 
     # Register views
     from app1.views.index import index_blp
@@ -54,7 +54,7 @@ def create_app(theConfig=None):
     _app.register_blueprint(api_v1_0_blp)
     # return
     # return app, db
-    print("[app1] Application created")
+    # print("[app1] Application created")
     return _app
 
 # Init

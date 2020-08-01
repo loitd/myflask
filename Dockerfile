@@ -12,7 +12,7 @@ RUN venv/bin/pip install gunicorn
 
 COPY app1 app1
 COPY migrations migrations
-COPY main.py wsgi.py boot.sh ./
+COPY wsgi.py boot.sh ./
 RUN chmod +x boot.sh
 
 ENV FLASK_APP app1
