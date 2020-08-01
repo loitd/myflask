@@ -25,4 +25,6 @@ This is how to install this template:
 ## Notes
 * `Python 3.7` is recommended
 * `Python 3.7.8` tested with
-
+* To setup data base and data seed on Heroku:  
+- Select run console  
+- Run `flask add-seed` command just like in the dev/test env
