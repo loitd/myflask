@@ -45,6 +45,7 @@ This is how to install this template:
 * `Python 3.7.8` tested with
 * Do NOT use `mysqlclient==2.0.1` since it has problem installing on Docker. Moved to `PyMySQL==0.10.0`.  
 * Do NOT use `psycopg2==2.8.5` since it has problem installing on Docker. Moved to `pg8000==1.16.3`.  
+* In any case, keep ONLY ONE of `Pipfile` or `requirements.txt` in your project.  
 * To setup data base and data seed on Heroku:  
     - Select run console  
     ![Run console](https://github.com/loitd/myflask/blob/master/heroku-config-01.png?raw=true)
