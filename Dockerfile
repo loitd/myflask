@@ -6,7 +6,7 @@ RUN adduser myflask
 WORKDIR /home/myflask
 
 # prepare for mysql client on docker
-RUN sudo apt install default-libmysqlclient-dev libmysqlclient-dev
+# RUN sudo apt install default-libmysqlclient-dev libmysqlclient-dev
 
 COPY requirements.txt requirements.txt
 RUN python -m venv venv
