@@ -14,7 +14,7 @@ codecov==2.1.8
 colorama==0.4.3
 coverage==5.2.1
 cryptography==3.0
-cx-Oracle==8.0.0
+cx-Oracle==cx_Oracle-8.0.0
 decorator==4.4.2
 distlib==0.3.1
 execnet==1.7.1
@@ -47,6 +47,7 @@ packaging==20.4
 paramiko==2.7.1
 passlib==1.7.2
 pluggy==0.13.1
+psycopg2==2.8.5
 py==1.9.0
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
