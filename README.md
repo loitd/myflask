@@ -8,7 +8,7 @@ My Python Flask Template with:
 * Coding, testing and deploying automated using CI/CD with Pytest, Codecov, Circle CI, Heroku.
 * Social authentications beside classic email/password.
 * Backend API with Flask
-* Deploy on Docker with Dockerfile in this git
+* Dockerized with Dockerfile (guide below)
 ## Links
 * Demo: [https://loi-flask.herokuapp.com/](https://loi-flask.herokuapp.com/)
 * Page: [https://loitd.github.io/myflask/](https://loitd.github.io/myflask/)
@@ -17,14 +17,32 @@ My Python Flask Template with:
 This is how to install this template:  
 ### Linux
 * `git clone https://github.com/loitd/myflask.git`  
-* `cd  myflask`  
+* `cd myflask`  
 * `python -m venv venv`
 * `source venv/bin/activate`
 * `(venv) pip install -r requirements.txt`  
-* `(venv) python main.py`  
+* `(venv) export FLASK_APP=app1`
+* `(venv) export FLASK_ENV=test`
+* `(venv) export GH_CLIENT_KEY=******`
+* `(venv) export GH_CLIENT_SECRET=******`
+* `(venv) export GG_CLIENT_ID=******`
+* `(venv) export GG_CLIENT_SECRET=******`
+* `(venv) flask add-seed`  
+* `(venv) flask run`  
+### Docker
+* Create the MariaDB container (root password will be printed to console):  
+* `sudo docker run --name mariadb -d -e MYSQL_RANDOM_ROOT_PASSWORD=yes -e MYSQL_DATABASE=myflask -e MYSQL_USER=myflask -e MYSQL_PASSWORD=mypassword mariadb:10.5`  
+* Check with `sudo docker ps` command  
+* Build `myflask` image from Dockerfile:  
+* `sudo docker build -t myflask:latest .`  
+* Check with `sudo docker images` command  
+* Run a container for that image (mapping host port 9001 to container port 5000 + remove when terminated):  
+* `sudo docker run -d -p 9001:5000 --rm myflask:latest -e GH_CLIENT_KEY=xxx -e GH_CLIENT_SECRET=xxx -e GG_CLIENT_ID=xxx -e GG_CLIENT_SECRET=xxx -e SQLALCHEMY_DATABASE_URI=mysql+mysqldb://myflask:mypassword@localhost/myflask`  
 ## Notes
 * `Python 3.7` is recommended
 * `Python 3.7.8` tested with
 * To setup data base and data seed on Heroku:  
-- Select run console  
-- Run `flask add-seed` command just like in the dev/test env
+    - Select run console  
+    ![Run console](https://github.com/loitd/myflask/blob/master/heroku-config-01.png?raw=true)
+    - Run `flask add-seed` command just like in the dev/test env  
+    ![Run console](https://github.com/loitd/myflask/blob/master/heroku-config-02.png?raw=true)

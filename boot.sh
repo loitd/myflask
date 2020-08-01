@@ -1,6 +1,6 @@
 #!/bin/sh
 # Make this entrypoint of Docker
-# docker run -it myflask -e GH_CLIENT_KEY=xxx -e GH_CLIENT_SECRET=xxx -e GG_CLIENT_ID=xxx -e GG_CLIENT_SECRET=xxx
+# docker run -d myflask -e GH_CLIENT_KEY=xxx -e GH_CLIENT_SECRET=xxx -e GG_CLIENT_ID=xxx -e GG_CLIENT_SECRET=xxx
 source venv/bin/activate
 export FLASK_ENV=test
 export FLASK_APP=app1

@@ -14,7 +14,7 @@ class DevelopmentConfig(Config):
     TESTING = True
     SECRET_KEY = "34567890-cvnbm,.22/tyijlk;67890vbnm,;ltyuilk.,dev"
     # Database & SQLAlchemy configs
-    SQLALCHEMY_DATABASE_URI = "mysql+mysqldb://test:123456@localhost/test"
+    SQLALCHEMY_DATABASE_URI = os.environ.get("SQLALCHEMY_DATABASE_URI")
     # SQLALCHEMY_BINDS = {
     #     'REPORTER':      'oracle+cx_oracle://TEST:123456@127.0.0.1:1521/DB81',
     #     'SQLITE':        'sqlite://', #in memory sqlite db
