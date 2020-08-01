@@ -1,3 +1,6 @@
+# -------------------------------------------------
+# These are features support for API
+# -------------------------------------------------
 import time
 
 def exetime_decor(input_func):
