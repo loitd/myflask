@@ -1,0 +1,23 @@
+version: '3'
+services:
+  mariadb:
+    image: "mariadb:10.5"
+    restart: always
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+      MYSQL_DATABASE: "myflask"
+      MYSQL_USER: "myflask"
+      MYSQL_PASSWORD: "mypassword"
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    # make sure `db` is alive before starting
+    depends_on:
+      - mariadb
+    environment:
+      GH_CLIENT_KEY: "development"
+      GH_CLIENT_SECRET: "development"
+      GG_CLIENT_ID: "development"
+      GG_CLIENT_SECRET: "development"
+      SQLALCHEMY_DATABASE_URI: "mysql+pymysql://myflask:mypassword@mariadb/myflask"

@@ -8,7 +8,7 @@ My Python Flask Template with:
 * Coding, testing and deploying automated using CI/CD with Pytest, Codecov, Circle CI, Heroku.
 * Social authentications beside classic email/password.
 * Backend API with Flask
-* Dockerized with Dockerfile (guide below)
+* Dockerized with Docker Compose (guide below)
 ## Links
 * Demo: [https://loi-flask.herokuapp.com/](https://loi-flask.herokuapp.com/)
 * Page: [https://loitd.github.io/myflask/](https://loitd.github.io/myflask/)
@@ -31,20 +31,15 @@ This is how to install this template:
 * `(venv) flask run`  
 ### Docker
 * Clone to your local:  
-`git clone https://github.com/loitd/myflask && cd myflask`  
-* Create the MariaDB container (root password will be printed to console):  
-* `sudo docker run --name mariadb -d -e MYSQL_RANDOM_ROOT_PASSWORD=yes -e MYSQL_DATABASE=myflask -e MYSQL_USER=myflask -e MYSQL_PASSWORD=mypassword mariadb:10.5`  
-* Check with `sudo docker ps` command  
-* Build `myflask` image from Dockerfile:  
-* `sudo docker build -t myflask:latest .`  
-* Check with `sudo docker images` command  
-* Run a container for that image (mapping host port 9001 to container port 5000 + remove when terminated):  
-* `sudo docker run -d -p 9001:5000 --rm myflask:latest -e GH_CLIENT_KEY=xxx -e GH_CLIENT_SECRET=xxx -e GG_CLIENT_ID=xxx -e GG_CLIENT_SECRET=xxx -e SQLALCHEMY_DATABASE_URI=mysql+pymysql://myflask:mypassword@localhost/myflask`  
+`git clone https://github.com/loitd/myflask && cd myflask`   
+* Update your keys pre-configured with samples at `docker-compose.yml`  
+* Turn the whole up with `docker-compose`: `sudo docker-compose up`  
 ## Notes
 * `Python 3.7` is recommended
 * `Python 3.7.8` tested with
-* Do NOT use `mysqlclient==2.0.1` since it has problem installing on Docker. Moved to `PyMySQL==0.10.0`.  
-* Do NOT use `psycopg2==2.8.5` since it has problem installing on Docker. Moved to `pg8000==1.16.3`.  
+* Do NOT use `mysqlclient==2.0.1` since it has problem installing on Docker. Moved to `PyMySQL==0.10.0`. Modify database URL to: `postgresql+pymysql://...`  
+* Do NOT use `psycopg2==2.8.5` since it has problem installing on Docker. Moved to `pg8000==1.16.3`. Then in the database URL, modify to: `postgresql+pg8000://...`  
+* You can NOT run `source venv/bin/activate` command in Docker. You need to specify to `venv/bin/flask` for EVERY Python command.  
 * In any case, keep ONLY ONE of `Pipfile` or `requirements.txt` in your project.  
 * To setup data base and data seed on Heroku:  
     - Select run console  
