@@ -7,33 +7,53 @@
 {% endblock %}
 
 {% block content %}
-  <form class="form-signin" id="formLogin" method="POST">
+  <form class="form-signin" id="formLogin" method="POST" novalidate>
     <div class="text-center mb-4">
     <img class="mb-4" src="{{ url_for('static', filename='img/kcal.svg') }}" alt="" width="72" height="72">
     <h1 class="h3 mb-3 font-weight-normal">Login</h1>
-    <p>Don't have an account yet? <a href="{{ url_for('register_blp.getRegister') }}">Register here</a></p>
+    <p>Don't have an account yet? <a href="{{ url_for('register_blp.reg') }}">Register here</a></p>
 
-  {% if errors %}
-    <div class="alert alert-danger" role="alert" style="font: 0.9em italic;">
-      {% for error in errors %}
-      <p>- {{ error }}</p>
-      {% endfor %}
-    </div>
-  {% endif %}
+    {% if errors %}
+        <div class="alert alert-danger" role="alert" style="font: 0.9em italic;">
+        {% for error in errors %}
+            <p>- {{ error }}</p>
+        {% endfor %}
+        </div>
+    {% endif %}
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="alert alert-info" role="alert" style="font: 0.9em italic;">
+            {% for message in messages %}
+              <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {{ form.hidden_tag() }}
 
     </div>
 
     <div class="form-label-group">
-    <input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="Email" required autofocus>
-    <label for="inputEmail">Email address (admin@myflask.com)</label>
+        <!-- {{ form.inputEmail(size=32) }} -->
+        <input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="Email" required autofocus value="user@myflask.com">
+        <label for="inputEmail">Email address</label> 
+        {% for error in form.inputEmail.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
     </div>
 
     <div class="form-label-group">
-    <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Password" required>
-    <label for="inputPassword">Password (123456)</label>
+        <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Password" required value="123456">
+        <label for="inputPassword">Password</label>
+        {% for error in form.inputPassword.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
     </div>
 
     <button class="btn btn-lg btn-primary btn-block" type="submit" id="btnLogin" name="btnLogin">Login</button>
+    
     <p id="txtsep" style="text-align: center; margin: 2px; font-style: oblique;">OR</p>
     <a href="{{ url_for('oauth_blp.getGoogle') }}" class="btn btn-lg btn-danger btn-block">Login with Google</a>
     <a href="{{ url_for('oauth_blp.getGithub') }}" class="btn btn-lg btn-secondary btn-block">Login with Github</a>

@@ -4,11 +4,14 @@
 My Python Flask Template with: 
 * Modular Flask with Blueprint
 * Pre-configured SQLAlchemy ORM (to MySQL, Oracle, SQLite, Postgres)
-* Frontend with Bootstrap 4
+* Frontend with Bootstrap 4, [Chart.js](https://www.chartjs.org/docs/latest/)
 * Coding, testing and deploying automated using CI/CD with Pytest, Codecov, Circle CI, Heroku.
 * Social authentications beside classic email/password.
 * Backend API with Flask
 * Dockerized with Docker Compose (guide below)
+* CSRF protection with [WTF](http://packages.python.org/Flask-WTF/)
+* Login Manager with [Flask-Login](https://flask-login.readthedocs.org/en/latest/)
+* RBAC with [Flask-Principle](http://packages.python.org/Flask-Principal/)
 ## Links
 * Demo: [https://loi-flask.herokuapp.com/](https://loi-flask.herokuapp.com/)
 * Page: [https://loitd.github.io/myflask/](https://loitd.github.io/myflask/)
@@ -46,3 +49,14 @@ This is how to install this template:
     ![Run console](https://github.com/loitd/myflask/blob/master/heroku-config-01.png?raw=true)
     - Run `flask add-seed` command just like in the dev/test env  
     ![Run console](https://github.com/loitd/myflask/blob/master/heroku-config-02.png?raw=true)
+## For developer
+* List of APIs:
+    - `/api/v1_0/swich`: Command management
+    - `/api/v1_0/updateuser`: User profile management (for frontend)
+* Push to Docker hub
+    - switch to `root`  
+    - `docker login`  
+    - `docker images`
+    - `docker push imagename`  
+* Rebuild if any change:  
+    - `sudo docker-compose build`

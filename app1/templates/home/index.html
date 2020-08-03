@@ -51,6 +51,18 @@
     <div class="container-fluid" style="margin-top: 10px;">
       <div class="row">
 
+      <div class="col-md-9">
+        <div class="card">
+          <div class="card-header text-primary">
+            This month sale
+          </div>
+          <div class="card-body">
+            <canvas id="myAreaChart" height="320"></canvas>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-3">
         <div class="card">
           <div class="card-header">
             Channel Switching Board
@@ -64,9 +76,10 @@
             <button type="button" class="btn btn-danger  swchannelbtn col-md-5" id="btn2onepay" data-toggle="modal" data-target="#modal1" data-w2="rollback">Rollback</button>
           </div>
         </div>
-
       </div>
-    </div>
+
+      </div><!-- .row -->
+    </div><!-- .container-fluid -->
 
   </main>
   </div>
@@ -114,6 +127,9 @@
 {% block footer %}
   <link href="{{ url_for('static', filename='css/dashboard.css') }}" rel="stylesheet">
   <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>   
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.css">
+  <script src="{{ url_for('static', filename='js/chart-area-demo.js') }}"></script>   
 {% endblock %}
 
 

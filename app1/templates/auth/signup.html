@@ -11,7 +11,7 @@
     <div class="text-center mb-4">
     <img class="mb-4" src="{{ url_for('static', filename='img/kcal.svg') }}" alt="" width="72" height="72">
     <h1 class="h3 mb-3 font-weight-normal">Register</h1>
-    <p>Already have an account? <a href="{{ url_for('login_blp.getLogin') }}">Sign in here</a></p>
+    <p>Already have an account? <a href="{{ url_for('login_blp.login') }}">Sign in here</a></p>
 
     {% if errors %}
       <div class="alert alert-danger" role="alert" style="font: 0.9em italic;">
@@ -20,22 +20,43 @@
         {% endfor %}
       </div>
     {% endif %}
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="alert alert-info" role="alert" style="font: 0.9em italic;">
+            {% for message in messages %}
+              <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    
     
     </div>
 
     <div class="form-label-group">
-    <input type="text" id="inputName" name="inputName" class="form-control" placeholder="Your name" required>
-    <label for="inputName">Your name</label>
+      <input type="text" id="inputName" name="inputName" class="form-control" placeholder="Your name" required>
+      <label for="inputName">Your name</label>
+      {% for error in form.inputName.errors %}
+          <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
     </div>
 
     <div class="form-label-group">
-    <input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-    <label for="inputEmail">Email address</label>
+      <input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+      <label for="inputEmail">Email address</label>
+      {% for error in form.inputEmail.errors %}
+          <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
     </div>
 
     <div class="form-label-group">
-    <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Password" required>
-    <label for="inputPassword">Password</label>
+      <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Password" required>
+      <label for="inputPassword">Password</label>
+      {% for error in form.inputPassword.errors %}
+          <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
     </div>
 
     <button class="btn btn-lg btn-primary btn-block" type="submit" id="btnRegister">Register</button>

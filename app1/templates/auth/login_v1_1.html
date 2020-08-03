@@ -1,0 +1,49 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block topnav %}
+  <!-- No topnav here -->
+{% endblock %}
+
+{% block content %}
+  <form class="form-signin" id="formLogin" method="POST">
+    <div class="text-center mb-4">
+    <img class="mb-4" src="{{ url_for('static', filename='img/kcal.svg') }}" alt="" width="72" height="72">
+    <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+    <p>Don't have an account yet? <a href="{{ url_for('register_blp.getRegister') }}">Register here</a></p>
+
+  {% if errors %}
+    <div class="alert alert-danger" role="alert" style="font: 0.9em italic;">
+      {% for error in errors %}
+      <p>- {{ error }}</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+    </div>
+
+    <div class="form-label-group">
+    <input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="Email" required autofocus>
+    <label for="inputEmail">Email address (admin@myflask.com)</label>
+    </div>
+
+    <div class="form-label-group">
+    <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Password" required>
+    <label for="inputPassword">Password (123456)</label>
+    </div>
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit" id="btnLogin" name="btnLogin">Login</button>
+    <p id="txtsep" style="text-align: center; margin: 2px; font-style: oblique;">OR</p>
+    <a href="{{ url_for('oauth_blp.getGoogle') }}" class="btn btn-lg btn-danger btn-block">Login with Google</a>
+    <a href="{{ url_for('oauth_blp.getGithub') }}" class="btn btn-lg btn-secondary btn-block">Login with Github</a>
+    <p class="mt-5 mb-3 text-muted text-center"><a href="https://github.com/loitd/myflask">&copy;MyFlask</a> 2017-2020</p>
+  </form>
+{% endblock %}
+
+{% block footer %}
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/floating-labels.css') }}">   
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+  <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+{% endblock %}

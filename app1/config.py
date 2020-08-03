@@ -12,7 +12,7 @@ class DevelopmentConfig(Config):
     ENV = 'development' #production
     DEBUG = True
     TESTING = True
-    SECRET_KEY = "34567890-cvnbm,.22/tyijlk;67890vbnm,;ltyuilk.,dev"
+    SECRET_KEY = os.environ.get("SECRET_KEY") or "ks;a;bf88jlk;67890"
     # Database & SQLAlchemy configs
     SQLALCHEMY_DATABASE_URI = os.environ.get("SQLALCHEMY_DATABASE_URI")
     # SQLALCHEMY_BINDS = {
@@ -33,6 +33,6 @@ class TestConfig(Config):
     ENV = 'test'
     DEBUG = True
     TESTING = True
-    SECRET_KEY = "34567890-cvnbm,./tyijlk;67890vbnm,;ltyuilk.,test"
+    SECRET_KEY = os.environ.get("SECRET_KEY") or "0-cm,./tlk;6"
     # Database & SQLAlchemy configs
     SQLALCHEMY_DATABASE_URI = "sqlite://"

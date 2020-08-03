@@ -5,7 +5,7 @@ from flask import Flask, current_app
 from lutils.utils import printlog, printwait
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-# from flask_login import LoginManager
+from flask_login import LoginManager
 import os
 
 _static = os.path.join(os.path.dirname(__file__), 'static')
@@ -13,6 +13,7 @@ _templates = os.path.join(os.path.dirname(__file__), 'templates')
 
 db = SQLAlchemy()
 mig = Migrate()
+loginmgr = LoginManager()
 
 def create_app(theConfig=None):
     _app = Flask(__name__, static_folder = _static, template_folder=_templates)
@@ -33,6 +34,9 @@ def create_app(theConfig=None):
     # _db = SQLAlchemy(_app)
     db.init_app(_app)
     mig.init_app(_app, db)
+    loginmgr.init_app(_app)
+    loginmgr.session_protection = "strong" #https://flask-login.readthedocs.io/en/latest/#session-protection
+    loginmgr.login_view = 'login_blp.login' #Flask-Login needs to know what is the view function that handles logins.
 
     # Now initialize the database
     import commands

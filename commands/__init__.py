@@ -20,8 +20,12 @@ def add_seed():
     drop_db()
     create_db()
     # create an administrator user
-    _u = User(email="admin@myflask.com", password="pbkdf2:sha256:150000$8MeWtFuN$22dd4d822ec9bc71d16841579a2bf4de92f2e2c3581341181627f7f96b03a647", fullname="Administrator", status=1, authtype=0)
-    db.session.add(_u)
+    _u = [
+        User(email="admin@myflask.com", password="pbkdf2:sha256:150000$8MeWtFuN$22dd4d822ec9bc71d16841579a2bf4de92f2e2c3581341181627f7f96b03a647", fullname="Administrator", status=1, authtype=0),
+        User(email="user@myflask.com", password="pbkdf2:sha256:150000$8MeWtFuN$22dd4d822ec9bc71d16841579a2bf4de92f2e2c3581341181627f7f96b03a647", fullname="Normal User", status=1, authtype=0)
+    ]
+    # db.session.add(_u)
+    db.session.bulk_save_objects(_u)
     db.session.commit()
     print("[add_seed] Database initialized!")
     return True

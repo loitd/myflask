@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 services:
   mariadb:
     image: "mariadb:10.5"
@@ -10,6 +10,7 @@ services:
       MYSQL_PASSWORD: "mypassword"
   web:
     build: .
+    image: loitd/myflask:latest #specify image name when build. Not support in Dockerfile.
     ports:
       - "5000:5000"
     # make sure `db` is alive before starting

@@ -2,9 +2,10 @@ from datetime import datetime
 from sqlalchemy import Sequence, text
 from sqlalchemy.orm import sessionmaker
 from werkzeug.security import generate_password_hash
-from app1 import db
+from app1 import db, loginmgr
+from flask_login import UserMixin
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     __tablename__ = 'tbl_users'
     __bind_key__ = None # No Bind Key -> default db
     id = db.Column(db.Integer, Sequence('user_id_seq'), primary_key=True, autoincrement=True)
@@ -19,6 +20,13 @@ class User(db.Model):
     
     def __repr__(self):
         return '<USER %r>' % self.email
+
+@loginmgr.user_loader
+def get_user(id):
+    """Because Flask-Login knows nothing about databases, it needs the application's help in loading a user. 
+    For that reason, the extension expects that the application will configure a user loader function, that can be called to load a user given the ID.
+    The user loader is registered with Flask-Login with the @login.user_loader decorator."""
+    return User.query.get(int(id))
 
 
 
