@@ -17,7 +17,9 @@ cryptography==3.0
 cx-Oracle==8.0.0
 decorator==4.4.2
 distlib==0.3.1
+dnspython==2.0.0
 dominate==2.5.1
+email-validator==1.1.1
 execnet==1.7.1
 Faker==4.1.1
 filelock==3.0.12

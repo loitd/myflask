@@ -40,7 +40,7 @@ This is how to install this template:
 ## Notes
 * `Python 3.7` is recommended
 * `Python 3.7.8` tested with
-* Do NOT use `mysqlclient==2.0.1` since it has problem installing on Docker. Moved to `PyMySQL==0.10.0`. Modify database URL to: `postgresql+pymysql://...`  
+* Do NOT use `mysqlclient==2.0.1` since it has problem installing on Docker. Moved to `PyMySQL==0.10.0`. Modify database URL to: `mysql+pymysql://...`  
 * Do NOT use `psycopg2==2.8.5` since it has problem installing on Docker. Moved to `pg8000==1.16.3`. Then in the database URL, modify to: `postgresql+pg8000://...`  
 * You can NOT run `source venv/bin/activate` command in Docker. You need to specify to `venv/bin/flask` for EVERY Python command.  
 * In any case, keep ONLY ONE of `Pipfile` or `requirements.txt` in your project.  
