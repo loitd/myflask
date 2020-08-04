@@ -29,10 +29,10 @@ def _social_login(email, fullname):
     row = db.session.query(User).filter_by(email=email).first()
     if row is None:
         # Not yet registered 
-        _usr = User(email=email, password="", fullname=fullname, status=0, authtype=1)
-        db.session.add(_usr)
+        row = User(email=email, password="", fullname=fullname, status=0, authtype=1)
+        db.session.add(row)
         db.session.commit()
-    login_user(_usr)
+    login_user(row)
     nextpage = request.args.get('next')
     if not nextpage or url_parse(nextpage).netloc == '':
         nextpage = url_for('index_blp.index')
