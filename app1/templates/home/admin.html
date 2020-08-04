@@ -1,0 +1,99 @@
+{% extends 'base/base_inner.html' %}
+
+{% block title %}Homepage{% endblock %}
+
+{% block content %}
+  <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        
+    <div class="container-fluid" style="margin-top: 10px;">
+      <div class="row">
+
+      <div class="col-md-9">
+        <div class="card">
+          <div class="card-header text-primary">
+            This is for ADMIN only
+          </div>
+          <div class="card-body">
+            <canvas id="myAreaChart" height="320"></canvas>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-3">
+        <div class="card">
+          <div class="card-header">
+            Channel Switching Board
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Switch Channel</h5>
+            <p class="card-text">To execute commands in the backend API and show result here.</p> 
+            <p>Yes, it's automated with CI/CD.</p>
+            <button type="button" class="btn btn-primary swchannelbtn col-md-3" id="btn2onepay" data-toggle="modal" data-target="#modal1" data-w2="switch to A">To A</button>
+            <button type="button" class="btn btn-success swchannelbtn col-md-3" id="btn2onepay" data-toggle="modal" data-target="#modal1" data-w2="switch to B">To B</button>
+            <button type="button" class="btn btn-danger  swchannelbtn col-md-5" id="btn2onepay" data-toggle="modal" data-target="#modal1" data-w2="rollback">Rollback</button>
+          </div>
+        </div>
+      </div>
+
+      </div><!-- .row -->
+    </div><!-- .container-fluid -->
+
+  </main>
+  </div>
+  </div>
+
+  <!-- MODALS -->
+  <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>We will now do your command: <b><span id="modal1target" style="color: red;"></span></b>?</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      <button type="button" class="btn btn-danger" id="btnyes">Yes, do it!</button>
+    </div>
+  </div>
+  </div>
+  </div>
+
+  <!-- OVERLAY -->
+  <div class="overlay" id="overlay1">
+    <div class="overlayspinner">
+      <div class="spinner-grow text-success" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    <div class="spinner-grow text-primary" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+    <div class="spinner-grow text-warning" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+    </div>
+    <p class="overlaytxt">Please wait while we do your command</p>
+  </div>
+
+{% endblock %}
+
+{% block footer %}
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.css">
+  <script src="{{ url_for('static', filename='js/chart-area-demo.js') }}"></script>   
+  <link href="{{ url_for('static', filename='css/dashboard.css') }}" rel="stylesheet">
+  <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>   
+{% endblock %}
+
+
+  
+
+
+
+    
+
+

@@ -13,7 +13,7 @@ index_blp = Blueprint('index_blp', __name__)
 @index_blp.route('/', methods = ['GET'])
 @index_blp.route('/index', methods = ['GET'])
 @login_required
-@admin_perm.require(http_exception=403)
+# @admin_perm.require(http_exception=403)
 def index():
     return render_template('home/index.html')
     
@@ -26,6 +26,12 @@ def profile():
 @login_required
 def hello():
     return render_template('home/index.html')
+
+@index_blp.route('/admin', methods = ['GET'])
+# @login_required
+@admin_perm.require(http_exception=403)
+def admin():
+    return render_template('home/admin.html')
 
 @index_blp.errorhandler(403)
 def authorisation_failed(e):
