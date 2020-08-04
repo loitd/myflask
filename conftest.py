@@ -12,6 +12,7 @@ import pytest
 from app1 import create_app
 from app1 import db as _db
 from app1.models.users import User
+from app1.models.roles import Role
 
 @pytest.fixture(scope="session")
 def app(request):
@@ -39,8 +40,10 @@ def db(app, request):
     # _db.drop_all()
     _db.create_all()
     _u = [
-        User(email="admin@myflask.com", password="pbkdf2:sha256:150000$8MeWtFuN$22dd4d822ec9bc71d16841579a2bf4de92f2e2c3581341181627f7f96b03a647", fullname="Administrator", status=1, authtype=0),
-        User(email="user@myflask.com", password="pbkdf2:sha256:150000$8MeWtFuN$22dd4d822ec9bc71d16841579a2bf4de92f2e2c3581341181627f7f96b03a647", fullname="Normal User", status=1, authtype=0)
+        Role(role="admin", description="Administrator permissions"),
+        Role(role="user", description="Normal User permissions"),
+        User(email="admin@myflask.com", password="pbkdf2:sha256:150000$8MeWtFuN$22dd4d822ec9bc71d16841579a2bf4de92f2e2c3581341181627f7f96b03a647", fullname="Administrator", status=1, role="admin", authtype=0),
+        User(email="user@myflask.com", password="pbkdf2:sha256:150000$8MeWtFuN$22dd4d822ec9bc71d16841579a2bf4de92f2e2c3581341181627f7f96b03a647", fullname="Normal User", status=1, role="user", authtype=0),
     ]
     _db.session.bulk_save_objects(_u)
     _db.session.commit()

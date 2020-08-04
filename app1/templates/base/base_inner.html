@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Tran Duc Loi">
+    <meta name="generator" content="Jekyll v3.8.5">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/kcal.svg') }}"/>
+    <link rel="canonical" href="https://github.com/loitd">
+    <title>{% block title %}{% endblock %} - MyFlask by Loitd</title>
+    <style>
+        .bd-placeholder-img {
+          font-size: 1.125rem;
+          text-anchor: middle;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+        }
+  
+        @media (min-width: 768px) {
+          .bd-placeholder-img-lg {
+            font-size: 3.5rem;
+          }
+        }
+    </style>
+    <!-- Custom styles for this template -->
+  </head>
+
+  <body>
+    <!-- This is topnav -->
+    <nav class="navbar navbar-dark bg-primary flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">
+            <img class="mb-1 mr-2" src="{{ url_for('static', filename='img/kcal.svg') }}" alt="" width="16" height="16"/>
+            MyFlask
+        </a>
+        <button id="navbar-toggler1" class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon" id="toggler-icon-1"></span>
+          </button>
+        <input class="form-control form-control-dark w-100" id="searchinput" type="text" placeholder="Search" aria-label="Search" style="">
+        <ul class="navbar-nav px-3 navbar-end">
+            <li class="nav-item text-nowrap">
+                <a class="nav-link" href="{{ url_for('login_blp.getLogout') }}" style="color: white;">Sign out</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- This is sidebar -->
+    <div class="container-fluid">
+        <div class="row">
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+                <div class="sidebar-sticky pt-3">
+                    <ul class="nav flex-column" id="sidebarItems1">
+                        <li class="nav-item">
+                            <a class="nav-link {% if url_for('index_blp.index') in request.path %}active{% endif %}" href="{{ url_for('index_blp.index') }}">
+                                <span data-feather="home"></span>
+                                Dashboard <span class="sr-only">(current)</span>
+                            </a>
+                        </li><!-- nav-item -->
+                        <li class="nav-item">
+                            <a class="nav-link {% if url_for('index_blp.profile') in request.path %}active{% endif %}" href="{{ url_for('index_blp.profile') }}">
+                                <span data-feather="user"></span>
+                                Profile
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('index_blp.page403') }}">
+                                <span data-feather="file"></span>
+                                403
+                            </a>
+                        </li>
+                        <!--
+                        <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span data-feather="shopping-cart"></span>
+                            Products
+                        </a>
+                        </li>
+                        -->
+                    </ul>
+                </div>
+            </nav>
+        <!-- </div>
+    </div> -->
+
+    {% block content %}{% endblock %}
+
+<!-- SCRIPTS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"></script>
+<!-- Any additional scripts here -->
+{% block footer %}{% endblock %} 
+
+</body>
+</html>

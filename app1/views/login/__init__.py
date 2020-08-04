@@ -5,6 +5,7 @@ from app1.views import Const
 from app1.models.authforms import LoginForm #use WTF
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
+from flask_principal import Principal, Identity, AnonymousIdentity, identity_changed
 
 # Define the BLUEPRINT here
 login_blp = Blueprint('login_blp', __name__)
@@ -24,21 +25,15 @@ def login():
                 if _email and _password:
                     row = db.session.query(User).filter_by(email=_email).first()
                     if row is not None: hashedpassword = row.password
-                    # print(rows)
                     if row and check_password_hash(hashedpassword, _password) and hashedpassword:
-                        # Successful
-                        login_user(row)
-                        # ---------------------
-                        # Redirect to next page 
-                        nextpage = request.args.get('next')
-                        if not nextpage or url_parse(nextpage).netloc == '':
-                            nextpage = url_for('index_blp.index')
-                        return redirect(nextpage)
+                        login_user(row) # Successful
+                        # Identity changed
+                        identity_changed.send(current_app._get_current_object(), identity=Identity(row.id))
+                        return redirect(request.args.get('next') or url_for("index_blp.index"))
                     else:
                         # session.pop('_flashes', None) #Clear the flash message
                         errors.append(Const.MSG_USER_NOTFOUND)
-            else:
-                # for example, without CSRF
+            else: # for example, without CSRF -> validation failed
                 errors.append(Const.MSG_VALIDATION_FAILED)
         return render_template('auth/login.html', form = form, errors=errors)
     except Exception as e:
@@ -82,4 +77,8 @@ def login_v1_1():
 def getLogout():
     # session.pop('email', None)
     logout_user()
-    return redirect(url_for('login_blp.login'))
+    # Principle
+    for key in ['identity.name', 'identity.auth_type']:
+        session.pop(key, None)
+    identity_changed.send(current_app._get_current_object(), identity=AnonymousIdentity())
+    return redirect(request.args.get('next') or url_for('login_blp.login'))

@@ -4,7 +4,7 @@
 My Python Flask Template with: 
 * Modular Flask with Blueprint
 * Pre-configured SQLAlchemy ORM (to MySQL, Oracle, SQLite, Postgres)
-* Frontend with Bootstrap 4, [Chart.js](https://www.chartjs.org/docs/latest/)
+* Fully responsive using frontend with Bootstrap 4, [Chart.js](https://www.chartjs.org/docs/latest/), [FeatherIcon](https://feathericons.com/)
 * Coding, testing and deploying automated using CI/CD with Pytest, Codecov, Circle CI, Heroku.
 * Social authentications beside classic email/password.
 * Backend API with Flask
@@ -50,7 +50,10 @@ This is how to install this template:
     - Run `flask add-seed` command just like in the dev/test env  
     ![Run console](https://github.com/loitd/myflask/blob/master/heroku-config-02.png?raw=true)
     - Wait until you see this text in the console: `[add_seed] Database initialized!`  
-## For developer
+* `flask add-seed` command gives you all database setup and 2 default users with default password `123456` for both:
+    - `admin@myflask.com` as an administrator account  
+    - `user@myflask.com` as a normal user account  
+## For developers
 * List of APIs:
     - `/api/v1_0/swich`: Command management
     - `/api/v1_0/updateuser`: User profile management (for frontend)

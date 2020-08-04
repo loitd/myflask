@@ -3,6 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from lutils.utils import printlog, printwait
 from flask_login import login_required
 from lutils.utils import printwait
+from app1.models.perms import admin_perm
 
 # https://flask.palletsprojects.com/en/1.1.x/blueprints/
 # Define the BLUEPRINT here
@@ -12,6 +13,7 @@ index_blp = Blueprint('index_blp', __name__)
 @index_blp.route('/', methods = ['GET'])
 @index_blp.route('/index', methods = ['GET'])
 @login_required
+@admin_perm.require(http_exception=403)
 def index():
     return render_template('home/index.html')
     
@@ -25,3 +27,10 @@ def profile():
 def hello():
     return render_template('home/index.html')
 
+@index_blp.errorhandler(403)
+def authorisation_failed(e):
+    return redirect(url_for("index_blp.page403"))
+
+@index_blp.route('/403', methods=['GET'])
+def page403():
+    return render_template("common/permission_denied.html")

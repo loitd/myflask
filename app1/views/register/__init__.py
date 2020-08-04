@@ -10,14 +10,12 @@ import time
 # Define the BLUEPRINT here
 register_blp = Blueprint('register_blp', __name__)
 
-# @app.route('/reg', methods = ['POST'])
 @register_blp.route('/reg', methods = ['POST','GET'])
 def reg():
     try:
         # session.pop('_flashes', None) #Clear the flash message
         if current_user.is_authenticated:
             return redirect(url_for("index_blp.index"))
-        # print("Begin processing postRegister")
         form = RegisterForm()
         errors = []
         if request.method == "POST": 
@@ -30,15 +28,13 @@ def reg():
                     _hashpassword = generate_password_hash(_password)
                     row = db.session.query(User).filter_by(email=_email).first()
                     if row and row.email == _email:
-                        errors.append(Const.MSG_USER_EXISTED)
-                        # print(errors)
-                        return render_template('auth/signup.html', errors=errors, form=form)
+                        errors.append(Const.MSG_USER_EXISTED) #existed
                     else:
                         _usr = User(email=_email, password=_hashpassword, fullname=_name, status=0)
                         db.session.add(_usr)
                         db.session.commit()
                         # flash("Registered successfully. Please login with your new account.")
-                        return redirect(url_for('login_blp.login'))
+                        return redirect(request.args.get('next') or url_for('login_blp.login'))
                 else:
                     errors.append(Const.MSG_BLANK_FIELDS_SUBMITTED)
             else:

@@ -15,6 +15,9 @@
     //     });
     // });
 // });
+$(document).ready(function(){
+    feather.replace();
+});
 
 // Switch channel + do commands dialog and confirm
 $('#modal1').on('show.bs.modal', function (event) {
@@ -100,3 +103,24 @@ $(document).ready(function(){
 });
 
 // update the fullname
+// Change the toggle button when click
+$(document).ready(function(){
+    $('#navbar-toggler1').click(function(){
+        if($('#toggler-icon-1').hasClass('navbar-toggler-icon')){
+            $('#toggler-icon-1').removeClass('navbar-toggler-icon');
+            $('#toggler-icon-1').addClass('navbar-toggler-icon2');
+        } else if($('#toggler-icon-1').hasClass('navbar-toggler-icon2')){
+            $('#toggler-icon-1').removeClass('navbar-toggler-icon2');
+            $('#toggler-icon-1').addClass('navbar-toggler-icon');
+        }
+    });
+});
+
+//change the sidebar active nav
+$(document).ready(function(){
+    $('#sidebarItems1 a.nav-link').click(function(){
+        // alert('Yes');
+        $('#sidebarItems1').find('a.active').removeClass('active');
+        $(this).addClass('active');
+    });
+});
