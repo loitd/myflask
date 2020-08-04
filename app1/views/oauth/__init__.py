@@ -5,6 +5,8 @@ from app1.views import Const
 import requests
 from oauthlib.oauth2 import WebApplicationClient
 from flask_dance.contrib.github import make_github_blueprint, github
+from flask_login import current_user, login_user, logout_user, login_required
+from werkzeug.urls import url_parse
 
 # Define the BLUEPRINT here
 oauth_blp = Blueprint('oauth_blp', __name__)
@@ -30,10 +32,11 @@ def _social_login(email, fullname):
         _usr = User(email=email, password="", fullname=fullname, status=0, authtype=1)
         db.session.add(_usr)
         db.session.commit()
-    # login
-    session['email'] = email
-    # print("session set")
-    return redirect(url_for('index_blp.index'))
+    login_user(_usr)
+    nextpage = request.args.get('next')
+    if not nextpage or url_parse(nextpage).netloc == '':
+        nextpage = url_for('index_blp.index')
+    return redirect(nextpage)
 
 # @app.route('/login', methods=['GET'])
 @oauth_blp.route('/oauth/gg', methods=['GET'])

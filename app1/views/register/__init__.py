@@ -14,7 +14,7 @@ register_blp = Blueprint('register_blp', __name__)
 @register_blp.route('/reg', methods = ['POST','GET'])
 def reg():
     try:
-        session.pop('_flashes', None) #Clear the flash message
+        # session.pop('_flashes', None) #Clear the flash message
         if current_user.is_authenticated:
             return redirect(url_for("index_blp.index"))
         # print("Begin processing postRegister")
@@ -37,7 +37,7 @@ def reg():
                         _usr = User(email=_email, password=_hashpassword, fullname=_name, status=0)
                         db.session.add(_usr)
                         db.session.commit()
-                        flash("Registered successfully. Please login with your new account.")
+                        # flash("Registered successfully. Please login with your new account.")
                         return redirect(url_for('login_blp.login'))
                 else:
                     errors.append(Const.MSG_BLANK_FIELDS_SUBMITTED)

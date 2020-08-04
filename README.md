@@ -49,6 +49,7 @@ This is how to install this template:
     ![Run console](https://github.com/loitd/myflask/blob/master/heroku-config-01.png?raw=true)
     - Run `flask add-seed` command just like in the dev/test env  
     ![Run console](https://github.com/loitd/myflask/blob/master/heroku-config-02.png?raw=true)
+    - Wait until you see this text in the console: `[add_seed] Database initialized!`  
 ## For developer
 * List of APIs:
     - `/api/v1_0/swich`: Command management

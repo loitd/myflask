@@ -31,7 +31,7 @@ def login():
                         # ---------------------
                         # Redirect to next page 
                         nextpage = request.args.get('next')
-                        if not nextpage or url_parse(nextpage).netloc != '':
+                        if not nextpage or url_parse(nextpage).netloc == '':
                             nextpage = url_for('index_blp.index')
                         return redirect(nextpage)
                     else:
