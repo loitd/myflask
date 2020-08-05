@@ -91,7 +91,8 @@ def add_seed():
         tbl_roles,
         [
             {'role':'admin', 'description': 'Administrator'},
-            {'role':'user', 'description': 'Normal User'}
+            {'role':'editor', 'description': 'Editor'},
+            {'role':'user', 'description': 'Normal User'},
         ]        
     )
     
@@ -99,7 +100,8 @@ def add_seed():
         tbl_users,
         [
             {'email':'admin@myflask.com', 'password':"pbkdf2:sha256:150000$8MeWtFuN$22dd4d822ec9bc71d16841579a2bf4de92f2e2c3581341181627f7f96b03a647",'fullname':"Admin", 'status':1, 'authtype':0},
-            {'email':'user@myflask.com',  'password':"pbkdf2:sha256:150000$8MeWtFuN$22dd4d822ec9bc71d16841579a2bf4de92f2e2c3581341181627f7f96b03a647",'fullname':"User",  'status':1, 'authtype':0}
+            {'email':'editor@myflask.com',  'password':"pbkdf2:sha256:150000$8MeWtFuN$22dd4d822ec9bc71d16841579a2bf4de92f2e2c3581341181627f7f96b03a647",'fullname':"Editor",  'status':1, 'authtype':0},
+            {'email':'user@myflask.com',  'password':"pbkdf2:sha256:150000$8MeWtFuN$22dd4d822ec9bc71d16841579a2bf4de92f2e2c3581341181627f7f96b03a647",'fullname':"User",  'status':1, 'authtype':0},
         ]        
     )
     
@@ -108,7 +110,7 @@ def add_seed():
         [
             {'user_email':'admin@myflask.com', 'role_role': 'admin'},
             {'user_email':'user@myflask.com',  'role_role': 'user'},
-            # {'user_email':'loitd@myflask.com', 'role_role': 'test'}
+            {'user_email':'editor@myflask.com', 'role_role': 'editor'},
         ]        
     )
     print("[add_seed] Done")

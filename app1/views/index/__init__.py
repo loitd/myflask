@@ -3,7 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from lutils.utils import printlog, printwait
 from flask_login import login_required
 from lutils.utils import printwait
-from app1.models.perms import admin_perm
+from app1.models.perms import admin_perm, editor_perm, user_perm
 
 # https://flask.palletsprojects.com/en/1.1.x/blueprints/
 # Define the BLUEPRINT here
@@ -32,6 +32,12 @@ def hello():
 @admin_perm.require(http_exception=403)
 def admin():
     return render_template('home/admin.html')
+
+@index_blp.route('/editor', methods = ['GET'])
+# @login_required
+@editor_perm.require(http_exception=403)
+def editor():
+    return render_template('home/editor.html')
 
 @index_blp.errorhandler(403)
 def authorisation_failed(e):

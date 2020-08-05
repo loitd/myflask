@@ -36,16 +36,26 @@ def client(app):
     return app.test_client()
 
 @pytest.fixture(scope="session")
+def cli(app):
+    """We create the app and db for TEST env"""
+    return app.test_cli_runner()
+
+
+
+@pytest.fixture(scope="session")
 def db(app, request):
     """The db for the app"""
     _db.drop_all()
     _db.create_all()
     _u = [
         Role(role="admin", description="Administrator permissions"),
+        Role(role="editor", description="Editor permissions"),
         Role(role="user", description="Normal User permissions"),
         User(email="admin@myflask.com", password="pbkdf2:sha256:150000$8MeWtFuN$22dd4d822ec9bc71d16841579a2bf4de92f2e2c3581341181627f7f96b03a647", fullname="Admin", status=1, authtype=0),
+        User(email="editor@myflask.com", password="pbkdf2:sha256:150000$8MeWtFuN$22dd4d822ec9bc71d16841579a2bf4de92f2e2c3581341181627f7f96b03a647", fullname="Editor", status=1, authtype=0),
         User(email="user@myflask.com", password="pbkdf2:sha256:150000$8MeWtFuN$22dd4d822ec9bc71d16841579a2bf4de92f2e2c3581341181627f7f96b03a647", fullname="Normal User", status=1, authtype=0),
         UserRole(user_email="admin@myflask.com", role_role="admin"),
+        UserRole(user_email="editor@myflask.com", role_role="editor"),
         UserRole(user_email="user@myflask.com", role_role="user"),
     ]
     _db.session.bulk_save_objects(_u)

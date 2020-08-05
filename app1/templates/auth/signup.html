@@ -36,7 +36,7 @@
     </div>
 
     <div class="form-label-group">
-      <input type="text" id="inputName" name="inputName" class="form-control" placeholder="Your name" required>
+      <input type="text" id="inputName" name="inputName" class="form-control" placeholder="Your name" required pattern="[a-zA-Z0-9._-]{6,20}" title="Please obey the rules. Only characters and ._-">
       <label for="inputName">Your name</label>
       {% for error in form.inputName.errors %}
           <span style="color: red;">[{{ error }}]</span>
@@ -67,6 +67,6 @@
 {% block footer %}
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/floating-labels.css') }}">   
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
-  <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
+  <script src="{{ url_for('static', filename='js/register.js') }}"></script>
 {% endblock %}

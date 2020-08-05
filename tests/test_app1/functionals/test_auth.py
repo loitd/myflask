@@ -36,8 +36,9 @@ def test_login(app, client, db): #need DB to init the database for the test
         postLogin = client.post(url_for('login_blp.login'), data=data, follow_redirects=True)
         assert postLogin.status_code == 200 # has feedback
         assert postLogin.headers.get("Location") == None # no redirection
-        assert Const.MSG_USER_NOTFOUND not in postLogin.data.decode("utf-8") #because it was failed by login form validation
-        assert Const.MSG_VALIDATION_FAILED in postLogin.data.decode("utf-8")
+        assert Const.MSG_USER_NOTFOUND in postLogin.data.decode("utf-8") #because it was failed by login form validation -> disabled for test
+        # assert Const.MSG_USER_NOTFOUND not in postLogin.data.decode("utf-8") #because it was failed by login form validation -> disabled for test
+        # assert Const.MSG_VALIDATION_FAILED in postLogin.data.decode("utf-8")
 
 def test_login_success(app, client, db):
     # Wrap your thread code in a test_request_context so you have access to context locals:
@@ -86,8 +87,9 @@ def test_register(app, client, db):
         assert reg.headers.get("Location") == None
         # Check if records exists in the database
         _row = db.session.query(User).filter_by(email=data["inputEmail"]).first()
-        assert _row is None #will NOT pass CSRF check
-        # assert _row.email == data["inputEmail"]
+        # assert _row is None #will NOT pass CSRF check
+        assert _row is not None #will NOT pass CSRF check -> disabled for test
+        assert _row.email == data["inputEmail"]
         
         # Test duplicated user register
         data = dict(
@@ -98,6 +100,7 @@ def test_register(app, client, db):
         reg = client.post(url_for('register_blp.reg'), data=data, follow_redirects=True)
         assert reg.status_code == 200 # has feedback
         assert reg.headers.get("Location") == None # no redirection
-        assert Const.MSG_USER_EXISTED not in reg.data.decode("utf-8") #not pass CSRF
-        assert Const.MSG_VALIDATION_FAILED in reg.data.decode("utf-8")
+        assert Const.MSG_USER_EXISTED in reg.data.decode("utf-8") #not pass CSRF -> disbled for test
+        # assert Const.MSG_USER_EXISTED not in reg.data.decode("utf-8") #not pass CSRF
+        # assert Const.MSG_VALIDATION_FAILED in reg.data.decode("utf-8")
     

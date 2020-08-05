@@ -19,6 +19,7 @@ class DevelopmentConfig(Config):
     #     'REPORTER':      'oracle+cx_oracle://TEST:123456@127.0.0.1:1521/DB81',
     #     'SQLITE':        'sqlite://', #in memory sqlite db
     # }
+    # WTF_CSRF_ENABLED = False #only in TEST env -> do NOT do it on any other env
     
 class ProductionConfig(Config):
     # all config: https://flask.palletsprojects.com/en/1.1.x/config/
@@ -35,4 +36,5 @@ class TestConfig(Config):
     TESTING = True
     SECRET_KEY = os.environ.get("SECRET_KEY") or "0-cm,./tlk;6"
     # Database & SQLAlchemy configs -> Pytest ALWAYS isolate databases for EACH test. -> always clear database after test.
-    SQLALCHEMY_DATABASE_URI = "sqlite:///test.db"
+    SQLALCHEMY_DATABASE_URI = "sqlite:///myflask.db"
+    WTF_CSRF_ENABLED = False #only in TEST env -> do NOT do it on any other env

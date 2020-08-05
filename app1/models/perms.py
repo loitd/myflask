@@ -25,9 +25,9 @@ def on_identity_loaded(sender, identity):
         _roles = current_user.getRoles()
         if "admin" in _roles:
             needs.append(admin_need)
-        elif "editor" in _roles:
+        if ("editor" in _roles) or ("admin" in _roles):
             needs.append(editor_need)
-        elif "user" in _roles:
+        if ("user" in _roles) or ("editor" in _roles) or ("admin" in _roles):
             needs.append(user_need)
     
     for need in needs:

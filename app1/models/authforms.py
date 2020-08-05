@@ -10,7 +10,7 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Sign In')
     
 class RegisterForm(FlaskForm):
-    inputName = StringField('inputName', validators=[DataRequired()])
+    inputName = StringField('inputName', validators=[DataRequired(), Regexp('[a-zA-Z0-9._-]{6,20}')])
     inputEmail = EmailField('inputEmail', validators=[Email(), InputRequired()])
     inputPassword = PasswordField('inputPassword', validators=[DataRequired()])
     submit = SubmitField('Register')

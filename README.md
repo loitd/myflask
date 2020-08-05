@@ -3,16 +3,20 @@
 [![lutils](https://circleci.com/gh/loitd/myflask.svg?style=svg)](https://circleci.com/gh/loitd/myflask)  
 My Python Flask Template with: 
 * Modular Flask with Blueprint
-* Pre-configured SQLAlchemy ORM (to MySQL, Oracle, SQLite, Postgres)
-* Fully responsive using frontend with Bootstrap 4, [Chart.js](https://www.chartjs.org/docs/latest/), [FeatherIcon](https://feathericons.com/)
+* Pre-configured [SQLAlchemy ORM](https://flask-sqlalchemy.palletsprojects.com/en/2.x/) (to MySQL, Oracle, SQLite, Postgres)
+* Fully responsive using frontend with [Bootstrap 4](http://getbootstrap.com/), [Chart.js](https://www.chartjs.org/docs/latest/), [FeatherIcon](https://feathericons.com/)
 * Coding, testing and deploying automated using CI/CD with Pytest, Codecov, Circle CI, Heroku.
 * Social authentications beside classic email/password.
 * Backend API with Flask
 * Dockerized with Docker Compose (guide below)
-* CSRF protection with [WTF](http://packages.python.org/Flask-WTF/)
+* CSRF protection/Form validation with [Flask-WTF](http://packages.python.org/Flask-WTF/)
 * Login Manager with [Flask-Login](https://flask-login.readthedocs.org/en/latest/)
 * RBAC with [Flask-Principle](http://packages.python.org/Flask-Principal/)
 * Migrated with [Flask-Migrate]() from v1.2 (was commandline before)
+* SQLInjection prevention with [this](https://realpython.com/prevent-python-sql-injection/#executing-a-query) and [this](https://viblo.asia/p/tim-hieu-ve-sql-injection-testing-RQqKLv90l7z) and [this](https://www.thepythoncode.com/code/sql-injection-vulnerability-detector-in-python). Security tests provided in `tests/test_app1/securities/` folder. (from v1.2)
+* Performance tests with [Locust](https://docs.locust.io/en/stable/quickstart.html) (from v1.2) with Failures percent ~ 8%
+    - `locust -f tests\test_app1\performance\test_perf_locust.py`
+    - ![Perf Test](https://github.com/loitd/myflask/blob/master/myflask_locust_perf_test.png?raw=true)
 ## Links
 * Demo: [https://loi-flask.herokuapp.com/](https://loi-flask.herokuapp.com/)
 * Page: [https://loitd.github.io/myflask/](https://loitd.github.io/myflask/)
@@ -66,3 +70,6 @@ This is how to install this template:
 * Rebuild if any change:  
     - `sudo docker-compose build`
 * About Migration: [Introduction](https://github.com/loitd/myflask/blob/master/migration.md)
+* More performance tests:
+    - ![Perf Test](https://github.com/loitd/myflask/blob/master/response_times_ms_1596651398.png?raw=true)
+    - ![Perf Test](https://github.com/loitd/myflask/blob/master/total_requests_per_second_1596651397?raw=true)

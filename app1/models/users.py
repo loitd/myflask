@@ -31,7 +31,7 @@ class User(UserMixin, db.Model):
         _sql = text("""SELECT A.role_role FROM tbl_user_role A WHERE A.user_email = '{0}'""".format(self.email))
         rows = db.engine.execute(_sql)
         _roles = [row[0] for row in rows]
-        # print(_roles)
+        print(_roles)
         return _roles
 
 @loginmgr.user_loader
