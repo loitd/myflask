@@ -12,6 +12,7 @@ My Python Flask Template with:
 * CSRF protection with [WTF](http://packages.python.org/Flask-WTF/)
 * Login Manager with [Flask-Login](https://flask-login.readthedocs.org/en/latest/)
 * RBAC with [Flask-Principle](http://packages.python.org/Flask-Principal/)
+* Migrated with [Flask-Migrate]() from v1.2 (was commandline before)
 ## Links
 * Demo: [https://loi-flask.herokuapp.com/](https://loi-flask.herokuapp.com/)
 * Page: [https://loitd.github.io/myflask/](https://loitd.github.io/myflask/)
@@ -30,7 +31,7 @@ This is how to install this template:
 * `(venv) export GH_CLIENT_SECRET=******`
 * `(venv) export GG_CLIENT_ID=******`
 * `(venv) export GG_CLIENT_SECRET=******`
-* `(venv) flask add-seed`  
+* `(venv) flask db upgrade`  
 * `(venv) flask run`  
 ### Docker
 * Clone to your local:  
@@ -64,3 +65,4 @@ This is how to install this template:
     - `docker push imagename`  
 * Rebuild if any change:  
     - `sudo docker-compose build`
+* About Migration: 

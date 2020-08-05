@@ -1,9 +1,7 @@
 from datetime import datetime
 from sqlalchemy import Sequence, text
 from sqlalchemy.orm import sessionmaker
-from werkzeug.security import generate_password_hash
 from app1 import db, loginmgr
-from flask_login import UserMixin
 
 class Role(db.Model):
     __tablename__ = 'tbl_roles'

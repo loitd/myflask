@@ -14,7 +14,6 @@ user_need = RoleNeed('user')
 
 # Create Permissions
 admin_perm = Permission(admin_need)
-admin_perm.description = "Administrator permissions"
 editor_perm = Permission(editor_need)
 user_perm = Permission(user_need)
 
@@ -23,11 +22,12 @@ user_perm = Permission(user_need)
 def on_identity_loaded(sender, identity):
     needs = []
     if current_user.is_authenticated:
-        if current_user.role == "admin":
+        _roles = current_user.getRoles()
+        if "admin" in _roles:
             needs.append(admin_need)
-        elif current_user.role == "editor":
+        elif "editor" in _roles:
             needs.append(editor_need)
-        elif current_user.role == "user":
+        elif "user" in _roles:
             needs.append(user_need)
     
     for need in needs:

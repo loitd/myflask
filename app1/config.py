@@ -34,5 +34,5 @@ class TestConfig(Config):
     DEBUG = True
     TESTING = True
     SECRET_KEY = os.environ.get("SECRET_KEY") or "0-cm,./tlk;6"
-    # Database & SQLAlchemy configs
-    SQLALCHEMY_DATABASE_URI = "sqlite://"
+    # Database & SQLAlchemy configs -> Pytest ALWAYS isolate databases for EACH test. -> always clear database after test.
+    SQLALCHEMY_DATABASE_URI = "sqlite:///test.db"
