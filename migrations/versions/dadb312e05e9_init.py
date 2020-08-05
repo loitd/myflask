@@ -13,8 +13,9 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 
 Session = sessionmaker()
-
 Base = declarative_base()
+bind = op.get_bind()
+session = Session(bind=bind)
 
 # https://alembic.sqlalchemy.org/en/latest/ops.html
 
@@ -27,23 +28,21 @@ depends_on = None
 def drop_all_table():
     try:
         # Some platform like postgre FORCE us to COMMIT or ROLLBACK after each failed sql
-        bind = op.get_bind()
-        session = Session(bind=bind)
         print("[drop_all_table] {0}".format(bind.engine.name))
-        if bind.engine.name == "postgre":
-            print("Running on POSTGRE")
+        if bind.engine.name == "postgresql":
+            print("Running on POSTGRESQL")
         # For a clean init
         op.drop_table('tbl_user_role')
         op.drop_table('tbl_users')
         op.drop_table('tbl_roles')
-    except exc.ProgrammingError as e: #pg8000
+    except exc.ProgrammingError as e: #pg8000 - postgresql
         if 'DropErrorMsgNonExistent' in str(e):
             # print(e['M'])
             print("No table found. We ignore dropping it")
             pass
         else:
             raise(e)
-        session.rollback() # A must from POSTGRE
+        session.rollback() # A must from POSTGRESQL
     except exc.OperationalError as e: 
         if "no such table" in str(e): #sqlite
             print("No table found. We ignore dropping it")
@@ -53,8 +52,10 @@ def drop_all_table():
             pass
         else:
             raise(e)
+        session.rollback()
     except Exception as e:
         raise(e)
+        session.rollback() #ANY exception -> rollback
 
 def add_seed():
     print("[add_seed] Begin")
