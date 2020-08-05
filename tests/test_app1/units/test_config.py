@@ -12,7 +12,7 @@ def test_env():
 
 def test_config(app):
     assert app.config["ENV"] is not None
-    assert app.config["TESTING"] == True
+    assert app.config["TESTING"] is not None
     assert app.config["SECRET_KEY"] is not None
     assert app.config["SQLALCHEMY_DATABASE_URI"] is not None
     # assert app.config["WTF_CSRF_ENABLED"] == False # turn off CSRF
