@@ -72,4 +72,4 @@ This is how to install this template:
 * About Migration: [Introduction](https://github.com/loitd/myflask/blob/master/migration.md)
 * More performance tests:
     - ![Perf Test](https://github.com/loitd/myflask/blob/master/response_times_ms_1596651398.png?raw=true)
-    - ![Perf Test](https://github.com/loitd/myflask/blob/master/total_requests_per_second_1596651397?raw=true)
+    - ![Perf Test](https://github.com/loitd/myflask/blob/master/total_requests_per_second_1596651397.png?raw=true)
