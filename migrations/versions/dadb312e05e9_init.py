@@ -8,7 +8,13 @@ Create Date: 2020-08-05 11:37:26.336862
 from alembic import op
 import sqlalchemy as sa
 from datetime import datetime
-from sqlalchemy import exc, Session
+from sqlalchemy import exc
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker, relationship
+
+Session = sessionmaker()
+
+Base = declarative_base()
 
 # https://alembic.sqlalchemy.org/en/latest/ops.html
 
