@@ -65,4 +65,4 @@ This is how to install this template:
     - `docker push imagename`  
 * Rebuild if any change:  
     - `sudo docker-compose build`
-* About Migration: 
+* About Migration: [Introduction](https://github.com/loitd/myflask/blob/master/migration.md)
