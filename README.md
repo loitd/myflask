@@ -1,11 +1,17 @@
 # myflask
 [![codecov](https://codecov.io/gh/loitd/myflask/branch/master/graph/badge.svg)](https://codecov.io/gh/loitd/myflask)
-[![lutils](https://circleci.com/gh/loitd/myflask.svg?style=svg)](https://circleci.com/gh/loitd/myflask)  
+[![lutils](https://circleci.com/gh/loitd/myflask.svg?style=svg)](https://circleci.com/gh/loitd/myflask)
+[![](https://img.shields.io/github/v/release/loitd/myflask?include_prereleases)](https://img.shields.io/github/v/release/loitd/myflask?include_prereleases)
+[![](https://img.shields.io/github/repo-size/loitd/myflask)](https://img.shields.io/github/repo-size/loitd/myflask)
+## Links
+* Demo: [https://loi-flask.herokuapp.com/](https://loi-flask.herokuapp.com/)
+* Page: [https://loitd.github.io/myflask/](https://loitd.github.io/myflask/)
+* Github: [https://github.com/loitd/myflask](https://github.com/loitd/myflask) 
 My Python Flask Template with: 
 * Modular Flask with Blueprint
 * Pre-configured [SQLAlchemy ORM](https://flask-sqlalchemy.palletsprojects.com/en/2.x/) (to MySQL, Oracle, SQLite, Postgres)
 * Fully responsive using frontend with [Bootstrap 4](http://getbootstrap.com/), [Chart.js](https://www.chartjs.org/docs/latest/), [FeatherIcon](https://feathericons.com/)
-* Coding, testing and deploying automated using CI/CD with Pytest, Codecov, Circle CI, Heroku.
+* Coding, testing and deploying automated using CI/CD with [Pytest](https://docs.pytest.org/en/stable/), [Codecov](https://docs.codecov.io/docs/python), [Circle CI](https://circleci.com/), [Heroku](https://loi-flask.herokuapp.com/).
 * Social authentications beside classic email/password.
 * Backend API with Flask
 * Dockerized with Docker Compose (guide below)
@@ -13,14 +19,10 @@ My Python Flask Template with:
 * Login Manager with [Flask-Login](https://flask-login.readthedocs.org/en/latest/)
 * RBAC with [Flask-Principle](http://packages.python.org/Flask-Principal/)
 * Migrated with [Flask-Migrate]() from v1.2 (was commandline before)
-* SQLInjection prevention with [this](https://realpython.com/prevent-python-sql-injection/#executing-a-query) and [this](https://viblo.asia/p/tim-hieu-ve-sql-injection-testing-RQqKLv90l7z) and [this](https://www.thepythoncode.com/code/sql-injection-vulnerability-detector-in-python). Security tests provided in `tests/test_app1/securities/` folder. (from v1.2)
-* Performance tests with [Locust](https://docs.locust.io/en/stable/quickstart.html) (from v1.2) with Failures percent ~ 8%
+* SQLInjection prevention with tips at [this](https://realpython.com/prevent-python-sql-injection/#executing-a-query) and [this](https://viblo.asia/p/tim-hieu-ve-sql-injection-testing-RQqKLv90l7z) and [this](https://www.thepythoncode.com/code/sql-injection-vulnerability-detector-in-python). Security tests provided in `tests/test_app1/securities/` folder. (from v1.2)
+* Performance tests with [Locust](https://docs.locust.io/en/stable/quickstart.html) (from v1.2) with Failures ratio ~ 8%
     - `locust -f tests\test_app1\performance\test_perf_locust.py`
     - ![Perf Test](https://github.com/loitd/myflask/blob/master/myflask_locust_perf_test.png?raw=true)
-## Links
-* Demo: [https://loi-flask.herokuapp.com/](https://loi-flask.herokuapp.com/)
-* Page: [https://loitd.github.io/myflask/](https://loitd.github.io/myflask/)
-* Github: [https://github.com/loitd/myflask](https://github.com/loitd/myflask)
 ## Installation
 This is how to install this template:  
 ### Linux
@@ -73,3 +75,5 @@ This is how to install this template:
 * More performance tests:
     - ![Perf Test](https://github.com/loitd/myflask/blob/master/response_times_ms_1596651398.png?raw=true)
     - ![Perf Test](https://github.com/loitd/myflask/blob/master/total_requests_per_second_1596651397.png?raw=true)
+## License
+* [License](https://github.com/loitd/myflask/blob/master/LICENSE)
