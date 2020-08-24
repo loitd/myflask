@@ -5,6 +5,7 @@ from app1.views.login import login_required
 from lutils.utils import printwait
 from app1.views.api.v1_0 import api_v1_0_blp
 from app1.views.api import exetime_decor
+import time
 
 @api_v1_0_blp.route('/api/v1_0/swich', methods=['GET','POST'])
 def swich_v1_0():
@@ -27,4 +28,12 @@ def updateUserInfo():
         _ret = {"result": 200, "msg": "Update fullname {0} for user: {1},{2} successfully".format(_fullname, _id, _email), "htmlmsg": 'Update fullname <b>{0}</b> for user: <b>{1}</b> <b><span style="color: green;">successfully</span></b>'.format(_fullname, _email)}
     return jsonify(_ret)
 
+@api_v1_0_blp.route('/api/v1_0/testlongjob', methods=['GET','POST'])
+def testLongJob():
+    if request.method == 'GET':
+        time.sleep(50)
+        _ret = {"result": 500, "msg": "Method(s) not allowed", "htmlmsg": "Method(s) <b>not</b> allowed"}
+    elif request.method == "POST":
+        pass
+    return jsonify(_ret)
     
