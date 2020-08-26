@@ -7,7 +7,8 @@
 * Demo: [https://loi-flask.herokuapp.com/](https://loi-flask.herokuapp.com/)
 * Page: [https://loitd.github.io/myflask/](https://loitd.github.io/myflask/)
 * Github: [https://github.com/loitd/myflask](https://github.com/loitd/myflask) 
-My Python Flask Template with: 
+My Python Flask Template with:  
+APP1  
 * Modular Flask with Blueprint
 * Pre-configured [SQLAlchemy ORM](https://flask-sqlalchemy.palletsprojects.com/en/2.x/) (to MySQL, Oracle, SQLite, Postgres)
 * Fully responsive using frontend with [Bootstrap 4](http://getbootstrap.com/), [Chart.js](https://www.chartjs.org/docs/latest/), [FeatherIcon](https://feathericons.com/)
@@ -21,8 +22,10 @@ My Python Flask Template with:
 * Migrated with [Flask-Migrate]() from v1.2 (was commandline before)
 * SQLInjection prevention with tips at [this](https://realpython.com/prevent-python-sql-injection/#executing-a-query) and [this](https://viblo.asia/p/tim-hieu-ve-sql-injection-testing-RQqKLv90l7z) and [this](https://www.thepythoncode.com/code/sql-injection-vulnerability-detector-in-python). Security tests provided in `tests/test_app1/securities/` folder. (from v1.2)
 * Performance tests with [Locust](https://docs.locust.io/en/stable/quickstart.html) (from v1.2) with Failures ratio ~ 8%
-    - `locust -f tests\test_app1\performance\test_perf_locust.py`
-    - ![Perf Test](https://github.com/loitd/myflask/blob/master/myflask_locust_perf_test.png?raw=true)
+    - `locust -f tests\test_app1\performance\test_perf_locust.py`  
+APP2  
+* API with [Celery asynchronous task queue](https://docs.celeryproject.org/en/stable/) (Redis as broker & result backend, gevent or threads)
+    - Pre-configured + samples Celery with Flask with status update
 ## Installation
 This is how to install this template:  
 ### Linux
@@ -73,6 +76,7 @@ This is how to install this template:
     - `sudo docker-compose build`
 * About Migration: [Introduction](https://github.com/loitd/myflask/blob/master/migration.md)
 * More performance tests:
+    - ![Perf Test](https://github.com/loitd/myflask/blob/master/myflask_locust_perf_test.png?raw=true)  
     - ![Perf Test](https://github.com/loitd/myflask/blob/master/response_times_ms_1596651398.png?raw=true)
     - ![Perf Test](https://github.com/loitd/myflask/blob/master/total_requests_per_second_1596651397.png?raw=true)
 ## License
